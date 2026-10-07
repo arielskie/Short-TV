@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>ShortTV — Live Interactive Product Demo & Admin Showcase</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#00df82',
+              dark: '#00b368',
+              glow: 'rgba(0, 223, 130, 0.4)',
+              vip: '#ff2d55',
+              coin: '#f59e0b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --accent-color: #00df82;
+      --accent-glow: rgba(0, 223, 130, 0.4);
+    }
+    body {
+      background-color: #090d16;
+      color: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    }
+    /* Phone Mockup Frame */
+    .phone-container {
+      width: 320px;
+      height: 640px;
+      border-radius: 44px;
+      background: #000;
+      border: 9px solid #1e293b;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px var(--accent-glow);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone-notch {
+      width: 110px;
+      height: 20px;
+      background: #1e293b;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      z-index: 50;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    /* Dynamic Accent Helper */
+    .text-dynamic { color: var(--accent-color); }
+    .bg-dynamic { background-color: var(--accent-color); }
+    .border-dynamic { border-color: var(--accent-color); }
+    .shadow-dynamic { box-shadow: 0 8px 25px var(--accent-glow); }
+
+    /* Heart animation */
+    @keyframes heartBurst {
+      0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+      50% { transform: scale(1.4) rotate(0deg); opacity: 1; filter: drop-shadow(0 0 15px #ff2d55); }
+      100% { transform: scale(1.1) translateY(-40px); opacity: 0; }
+    }
+    .heart-burst {
+      animation: heartBurst 0.8s ease-out forwards;
+    }
+    /* Ribbon Stroke Animation */
+    @keyframes ribbonStrokeAnim {
+      0% { stroke-dashoffset: 1000; opacity: 0; }
+      50% { stroke-dashoffset: 0; opacity: 1; filter: drop-shadow(0 0 16px var(--accent-color)); }
+      100% { opacity: 0; transform: scale(1.2); }
+    }
+    .ribbon-anim {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: ribbonStrokeAnim 2.2s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- TOP APP NAVIGATION BAR -->
+  <nav class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3.5">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('app')">
+        <img src="docs/assets/favicon.png" alt="ShortTV Logo" class="w-8 h-8 rounded-lg shadow-md border border-slate-700">
+        <span class="text-xl font-black tracking-wider text-white">Short<span class="text-dynamic">TV</span></span>
+        <span class="hidden sm:inline-block bg-slate-800 text-emerald-400 text-[11px] font-mono font-bold px-2 py-0.5 rounded border border-emerald-500/30">
+          PRO DEMO
+        </span>
+      </div>
+
+      <!-- Mode Switcher Tabs -->
+      <div class="flex items-center bg-slate-800/90 p-1 rounded-xl border border-slate-700/80 shadow-inner">
+        <button id="btn-view-app" onclick="switchView('app')" class="flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-dynamic text-slate-950 shadow-md">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+          <span class="hidden md:inline">Mobile App Experience</span>
+          <span class="md:hidden">App Demo</span>
+        </button>
+        <button id="btn-view-admin" onclick="switchView('admin')" class="flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition">
+          <i class="fa-solid fa-sliders"></i>
+          <span class="hidden md:inline">WordPress Admin Panel</span>
+          <span class="md:hidden">Admin Demo</span>
+        </button>
+      </div>
+
+      <!-- Header Action Links -->
+      <div class="flex items-center space-x-3">
+        <!-- Live Color Palette Switcher -->
+        <div class="hidden lg:flex items-center space-x-1.5 bg-slate-800/60 px-2.5 py-1 rounded-lg border border-slate-700/50">
+          <span class="text-[11px] text-slate-400 mr-1"><i class="fa-solid fa-palette mr-1"></i>Theme:</span>
+          <button onclick="setThemeAccent('#00df82', 'rgba(0, 223, 130, 0.4)')" class="w-4 h-4 rounded-full bg-[#00df82] border border-white/40 hover:scale-110 transition" title="Neon Emerald"></button>
+          <button onclick="setThemeAccent('#ff2d55', 'rgba(255, 45, 85, 0.4)')" class="w-4 h-4 rounded-full bg-[#ff2d55] border border-white/40 hover:scale-110 transition" title="Crimson VIP"></button>
+          <button onclick="setThemeAccent('#38bdf8', 'rgba(56, 189, 248, 0.4)')" class="w-4 h-4 rounded-full bg-[#38bdf8] border border-white/40 hover:scale-110 transition" title="Sky Blue"></button>
+          <button onclick="setThemeAccent('#eab308', 'rgba(234, 179, 8, 0.4)')" class="w-4 h-4 rounded-full bg-[#eab308] border border-white/40 hover:scale-110 transition" title="Royal Gold"></button>
+        </div>
+
+        <a href="https://github.com/arielskie/Short-TV" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white text-xs font-semibold px-3 py-2 rounded-lg border border-slate-700 transition flex items-center gap-1.5">
+          <i class="fa-brands fa-github text-sm"></i>
+          <span>GitHub Repo</span>
+        </a>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ================= VIEW 1: FRONTEND MOBILE APP SIMULATOR ================= -->
+  <section id="view-app" class="flex-1 max-w-7xl mx-auto w-full px-4 lg:px-8 py-8">
+    
+    <!-- Hero Banner -->
+    <div class="text-center max-w-3xl mx-auto mb-8">
+      <div class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-xs font-semibold mb-3">
+        <i class="fa-solid fa-sparkles"></i>
+        <span>Live Interactive Short-Drama Streaming Platform</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight">
+        Next-Gen Vertical Drama <span class="text-dynamic">WordPress Theme</span>
+      </h1>
+      <p class="text-slate-400 text-sm md:text-base mt-2">
+        Test the viral 9:16 mobile player, VIP Pass coin unlocks, double-tap gestures, and adaptive 1080p streaming.
+      </p>
+    </div>
+
+    <!-- Dual Layout: Phone Mockup (Center/Left) + Live Controls & Specs (Right) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- PHONE SIMULATOR CONTAINER -->
+      <div class="lg:col-span-5 flex flex-col items-center justify-center">
+        
+        <div class="phone-container">
+          <!-- Notch -->
+          <div class="phone-notch"></div>
+
+          <!-- Phone Status Bar -->
+          <div class="w-full flex justify-between items-center text-[10px] text-slate-400 px-5 pt-2 pb-1 z-40 select-none">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1.5">
+              <i class="fa-solid fa-signal"></i>
+              <i class="fa-solid fa-wifi"></i>
+              <i class="fa-solid fa-battery-full text-dynamic"></i>
+            </div>
+          </div>
+
+          <!-- Phone Screen Views Container -->
+          <div class="flex-1 w-full relative overflow-hidden bg-slate-950 flex flex-col">
+            
+            <!-- SCREEN A: HOME / BROWSE FEED (CRISP SHORTTV MOBILE HOMEPAGE MOCKUP) -->
+            <div id="phone-screen-home" class="flex-1 relative overflow-y-auto bg-[#0a0d14] select-none no-scrollbar">
+              <div class="relative w-full">
+                <!-- Real Mobile Screenshot -->
+                <img src="docs/assets/mobile-ui.png" alt="ShortTV Mobile UI" class="w-full h-auto block cursor-pointer" onclick="openPlayer('Guardian of the Forbidden Flame', 'Episode 1: The Golden Mark', 15)" title="Click anywhere to launch 9:16 ReelPlayer">
+                
+                <!-- Interactive Watch History Hotspot -->
+                <div class="absolute top-[68%] inset-x-3 h-28 z-20 cursor-pointer" onclick="openPlayer('From Anvil to Throne', 'Episode 2: The Smithy Secret', 65)" title="Resume Watching"></div>
+              </div>
+            </div>
+
+            <!-- SCREEN B: VERTICAL 9:16 REELPLAYER (CRISP SINGLE LAYER WITH INTERACTIVE HOTSPOTS) -->
+            <div id="phone-screen-player" class="hidden flex-1 flex flex-col relative bg-black select-none text-white overflow-hidden">
+              
+              <!-- Video Stage with Clean Single-Layer Artwork -->
+              <div id="player-video-stage" ondblclick="triggerHeartBurst(event)" class="relative w-full h-full flex-1">
+                <img src="docs/assets/player-preview.png" alt="ShortTV ReelPlayer" class="w-full h-full object-cover block pointer-events-none">
+
+                <!-- Heart Burst Container -->
+                <div id="heart-burst-box" class="absolute inset-0 pointer-events-none flex items-center justify-center z-40"></div>
+
+                <!-- Interactive Hotspots Overlay (Invisible clickable areas mapped to player-preview.png) -->
+                <!-- Top Back Button (< EP.1) -->
+                <button onclick="closePlayer()" class="absolute top-2 left-2 w-20 h-8 z-30 cursor-pointer rounded-lg hover:bg-white/10 active:scale-95 transition" title="Go back to Home"></button>
+
+                <!-- Top Sign In Button -->
+                <button onclick="alert('👤 Google Firebase Auth: Sign in to sync watch progress and coins across all your devices!');" class="absolute top-2 right-2 w-24 h-8 z-30 cursor-pointer rounded-full hover:bg-white/10 active:scale-95 transition" title="Sign In"></button>
+
+                <!-- Center Play/Pause Hotspot -->
+                <div onclick="togglePlay()" class="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 z-30 cursor-pointer rounded-full hover:bg-white/10 active:scale-90 transition flex items-center justify-center" title="Play / Pause">
+                  <div id="play-pause-pulse" class="hidden w-12 h-12 rounded-full bg-black/60 border border-white/30 flex items-center justify-center text-white text-xl">
+                    <i id="sim-play-icon" class="fa-solid fa-play ml-0.5"></i>
+                  </div>
+                </div>
+
+                <!-- Right Action Column Hotspots -->
+                <!-- Like Hotspot -->
+                <div onclick="toggleLike(); triggerHeartBurst(event);" class="absolute right-2 top-[32%] w-12 h-14 z-30 cursor-pointer rounded-full hover:bg-white/10 active:scale-95 transition" title="Like / Love (Double Tap)"></div>
+                
+                <!-- Save / Bookmark Hotspot -->
+                <div onclick="alert('🔖 Added to My List & Watch History!');" class="absolute right-2 top-[44%] w-12 h-14 z-30 cursor-pointer rounded-full hover:bg-white/10 active:scale-95 transition" title="Save / Bookmark"></div>
+                
+                <!-- Comment Hotspot -->
+                <div onclick="alert('💬 Comments: 0 comments yet. Be the first to leave a review!');" class="absolute right-2 top-[56%] w-12 h-14 z-30 cursor-pointer rounded-full hover:bg-white/10 active:scale-95 transition" title="Comments"></div>
+                
+                <!-- Episodes Burger Hotspot -->
+                <div onclick="openEpisodeDrawer()" class="absolute right-2 top-[68%] w-12 h-14 z-30 cursor-pointer rounded-full hover:bg-white/10 active:scale-95 transition" title="Open Episodes Drawer"></div>
+                
+                <!-- Share Hotspot -->
+                <div onclick="alert('🔗 Share Link copied to clipboard!');" class="absolute right-2 top-[80%] w-12 h-14 z-30 cursor-pointer rounded-full hover:bg-white/10 active:scale-95 transition" title="Share Drama"></div>
+
+                <!-- Bottom Title Hotspot -->
+                <div onclick="openEpisodeDrawer()" class="absolute bottom-12 left-3 right-16 h-12 z-30 cursor-pointer hover:bg-white/5 rounded-lg transition" title="View Series Details & Episodes"></div>
+
+                <!-- Bottom Toolbar Hotspots -->
+                <!-- Speed Toggle -->
+                <button onclick="cycleSpeed()" class="absolute bottom-2.5 left-[18%] w-10 h-7 z-30 cursor-pointer rounded-full hover:bg-white/20 active:scale-90 transition" title="Playback Speed"></button>
+
+                <!-- Audio Toggle -->
+                <button onclick="toggleAudio()" class="absolute bottom-2.5 left-[34%] w-9 h-7 z-30 cursor-pointer rounded-full hover:bg-white/20 active:scale-90 transition" title="Mute / Unmute Audio"></button>
+
+                <!-- Quality Dropdown -->
+                <button onclick="toggleQualityMenu()" class="absolute bottom-2.5 left-[48%] w-14 h-7 z-30 cursor-pointer rounded-full hover:bg-white/20 active:scale-90 transition" title="Stream Resolution"></button>
+
+                <!-- Cinema Fullscreen -->
+                <button onclick="alert('⛶ Cinema Fullscreen Mode Activated!');" class="absolute bottom-2.5 right-[18%] w-9 h-7 z-30 cursor-pointer rounded-full hover:bg-white/20 active:scale-90 transition" title="Cinema Fullscreen"></button>
+
+                <!-- Quality Popup Menu -->
+                <div id="player-quality-menu" class="hidden absolute bottom-12 left-1/2 transform -translate-x-1/2 bg-slate-900/95 border border-slate-700 rounded-xl py-1.5 shadow-2xl z-50 text-[10px] w-28 backdrop-blur-md">
+                  <div onclick="setQuality('Auto (HLS)', false)" class="px-3 py-1 text-slate-200 hover:bg-slate-800 cursor-pointer flex items-center justify-between">
+                    <span>Auto</span> <i class="fa-solid fa-check text-emerald-400 text-[8px]"></i>
+                  </div>
+                  <div onclick="setQuality('1080p VIP', true)" class="px-3 py-1 text-pink-400 hover:bg-slate-800 font-bold flex items-center justify-between cursor-pointer">
+                    <span>1080p FHD</span> <i class="fa-solid fa-crown text-[8px]"></i>
+                  </div>
+                  <div onclick="setQuality('720p HD', true)" class="px-3 py-1 text-pink-400 hover:bg-slate-800 font-bold flex items-center justify-between cursor-pointer">
+                    <span>720p HD</span> <i class="fa-solid fa-crown text-[8px]"></i>
+                  </div>
+                  <div onclick="setQuality('480p SD', false)" class="px-3 py-1 text-slate-300 hover:bg-slate-800 cursor-pointer">480p SD</div>
+                  <div onclick="setQuality('360p Data', false)" class="px-3 py-1 text-slate-300 hover:bg-slate-800 cursor-pointer">360p Saver</div>
+                </div>
+              </div>
+
+              <!-- Sliding Bottom Episode Drawer (Modal) -->
+              <div id="episode-drawer" class="hidden absolute inset-x-0 bottom-0 max-h-[70%] bg-slate-900/95 backdrop-blur-md border-t border-slate-800 rounded-t-3xl p-4 z-50 flex flex-col shadow-2xl">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                  <div class="text-xs font-bold text-white">Episodes Selection (<span id="drawer-total-eps">50</span>)</div>
+                  <button onclick="closeEpisodeDrawer()" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="text-[10px] text-slate-400 my-2">Episodes 1–5 Free • Episode 6+ requires VIP or Coins</div>
+                
+                <!-- Episode Number Grid -->
+                <div class="grid grid-cols-5 gap-2 overflow-y-auto py-2 text-center text-xs font-bold">
+                  <div onclick="selectEpisode(1, false)" class="bg-white text-slate-950 p-2 rounded-lg cursor-pointer">1</div>
+                  <div onclick="selectEpisode(2, false)" class="bg-slate-800 hover:bg-slate-700 text-white p-2 rounded-lg cursor-pointer">2</div>
+                  <div onclick="selectEpisode(3, false)" class="bg-slate-800 hover:bg-slate-700 text-white p-2 rounded-lg cursor-pointer">3</div>
+                  <div onclick="selectEpisode(4, false)" class="bg-slate-800 hover:bg-slate-700 text-white p-2 rounded-lg cursor-pointer">4</div>
+                  <div onclick="selectEpisode(5, false)" class="bg-slate-800 hover:bg-slate-700 text-white p-2 rounded-lg cursor-pointer">5</div>
+                  
+                  <!-- Locked Episodes -->
+                  <div onclick="selectEpisode(6, true)" class="bg-slate-800/60 hover:bg-pink-900/30 text-slate-400 p-2 rounded-lg border border-pink-500/30 cursor-pointer flex flex-col items-center justify-center">
+                    <span>6</span> <i class="fa-solid fa-lock text-[8px] text-pink-400"></i>
+                  </div>
+                  <div onclick="selectEpisode(7, true)" class="bg-slate-800/60 hover:bg-pink-900/30 text-slate-400 p-2 rounded-lg border border-pink-500/30 cursor-pointer flex flex-col items-center justify-center">
+                    <span>7</span> <i class="fa-solid fa-lock text-[8px] text-pink-400"></i>
+                  </div>
+                  <div onclick="selectEpisode(8, true)" class="bg-slate-800/60 hover:bg-pink-900/30 text-slate-400 p-2 rounded-lg border border-pink-500/30 cursor-pointer flex flex-col items-center justify-center">
+                    <span>8</span> <i class="fa-solid fa-lock text-[8px] text-pink-400"></i>
+                  </div>
+                  <div onclick="selectEpisode(9, true)" class="bg-slate-800/60 hover:bg-pink-900/30 text-slate-400 p-2 rounded-lg border border-pink-500/30 cursor-pointer flex flex-col items-center justify-center">
+                    <span>9</span> <i class="fa-solid fa-lock text-[8px] text-pink-400"></i>
+                  </div>
+                  <div onclick="selectEpisode(10, true)" class="bg-slate-800/60 hover:bg-pink-900/30 text-slate-400 p-2 rounded-lg border border-pink-500/30 cursor-pointer flex flex-col items-center justify-center">
+                    <span>10</span> <i class="fa-solid fa-lock text-[8px] text-pink-400"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- VIP Paywall Unlock Modal -->
+              <div id="vip-modal" class="hidden absolute inset-0 bg-black/85 backdrop-blur-sm z-50 p-4 flex flex-col justify-center items-center text-center">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-pink-600 to-rose-400 flex items-center justify-center text-white text-xl shadow-lg mb-3">
+                  <i class="fa-solid fa-crown"></i>
+                </div>
+                <h4 class="text-sm font-black text-white">Unlock Premium Episode</h4>
+                <p class="text-[10px] text-slate-300 mt-1 max-w-[220px]">This episode is locked. Choose your preferred unlock option:</p>
+
+                <div class="w-full space-y-2 mt-4">
+                  <button onclick="unlockWithCoins()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow">
+                    <i class="fa-solid fa-coins"></i> Unlock for 10 Coins
+                  </button>
+                  <button onclick="unlockWithVip()" class="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:opacity-90 text-white font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow">
+                    <i class="fa-solid fa-gem"></i> Get VIP Pass ($9.99/mo)
+                  </button>
+                  <button onclick="closeVipModal()" class="text-[10px] text-slate-400 hover:text-white pt-1">Cancel</button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="text-center text-xs text-slate-400 mt-4">
+          <i class="fa-solid fa-circle-info text-dynamic mr-1"></i> Interactive Demo: Click dramas, switch episodes & test VIP unlocks!
+        </div>
+
+      </div>
+
+      <!-- PRODUCT HIGHLIGHTS & LIVE CONTROLS (Right Side) -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <!-- Feature 1: Multi-CDN Storage Engine -->
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-black text-white flex items-center gap-2.5">
+              <i class="fa-solid fa-cloud text-sky-400"></i> Zero-Egress Multi-CDN Storage
+            </h3>
+            <span class="bg-sky-500/20 text-sky-400 text-xs px-2.5 py-0.5 rounded-full font-bold">COST SAVING</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Eliminate massive streaming bandwidth bills. ShortTV supports **Cloudflare R2** with zero egress fees, **Gumlet DRM** with hardware encryption, and **Cloudinary** with automated 9:16 vertical transcoding and smart folder routing (<code class="text-dynamic">short / Drama Title</code>).
+          </p>
+          <div class="grid grid-cols-3 gap-3 mt-4 text-center text-xs font-semibold">
+            <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/60">
+              <i class="fa-brands fa-cloudflare text-orange-400 text-lg mb-1 block"></i>
+              <span>Cloudflare R2</span>
+            </div>
+            <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/60">
+              <i class="fa-solid fa-shield-virus text-red-400 text-lg mb-1 block"></i>
+              <span>Gumlet DRM</span>
+            </div>
+            <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700/60">
+              <i class="fa-solid fa-cloud text-sky-400 text-lg mb-1 block"></i>
+              <span>Cloudinary</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 2: VIP & Monetization System -->
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-black text-white flex items-center gap-2.5">
+              <i class="fa-solid fa-crown text-pink-400"></i> Double-Engine Monetization
+            </h3>
+            <span class="bg-pink-500/20 text-pink-400 text-xs px-2.5 py-0.5 rounded-full font-bold">RECURRING REVENUE</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-300">
+            <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/50">
+              <div class="font-bold text-pink-400 text-sm flex items-center gap-1.5 mb-1">
+                <i class="fa-solid fa-gem"></i> VIP Pass Subscriptions
+              </div>
+              <p class="text-slate-400">Unlimited 1080p full-catalog streaming, zero advertisements, and early access to newly dropped episodes.</p>
+            </div>
+            <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/50">
+              <div class="font-bold text-amber-400 text-sm flex items-center gap-1.5 mb-1">
+                <i class="fa-solid fa-coins"></i> Virtual Coin Economy
+              </div>
+              <p class="text-slate-400">Pay-per-episode unlocking (e.g. 10 coins/ep), daily streak reward rewards, and coin bundles.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 3: Full Admin & PWA Experience -->
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <div>
+            <h4 class="text-sm font-black text-white flex items-center gap-2">
+              <i class="fa-solid fa-sliders text-dynamic"></i> Want to test the WordPress Admin Panel?
+            </h4>
+            <p class="text-xs text-slate-400 mt-1">Explore all 8 admin settings tabs, live splash phone simulator, and drama catalogs.</p>
+          </div>
+          <button onclick="switchView('admin')" class="bg-dynamic hover:opacity-90 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs flex items-center gap-2 shadow-lg whitespace-nowrap">
+            <span>Launch Admin Simulator</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ================= VIEW 2: EMBEDDED WORDPRESS ADMIN SIMULATOR ================= -->
+  <section id="view-admin" class="hidden flex-1 w-full max-w-7xl mx-auto px-4 lg:px-8 py-6">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h2 class="text-2xl font-black text-white flex items-center gap-3">
+          <span>WordPress Admin & Feature Studio</span>
+          <span class="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-normal">Live Backend Simulator</span>
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">Full simulation of Short Stream Settings, Splash Ribbon Customizer, and Multi-CDN routing.</p>
+      </div>
+      <button onclick="switchView('app')" class="bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 px-3.5 py-2 rounded-lg border border-slate-700 flex items-center gap-1.5">
+        <i class="fa-solid fa-arrow-left"></i> Back to App Demo
+      </button>
+    </div>
+
+    <!-- Admin Iframe / Embed Container -->
+    <div class="w-full bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl" style="height: 780px;">
+      <iframe src="admin-simulator.html?v=2.7.0" class="w-full h-full border-0" title="ShortTV WordPress Admin Simulator"></iframe>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 border-t border-slate-800/80 py-6 px-4 text-center text-xs text-slate-400 mt-auto">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-2">
+        <img src="docs/assets/favicon.png" alt="ShortTV" class="w-5 h-5 rounded">
+        <span class="font-bold text-slate-200">ShortTV Platform</span>
+        <span>• Enterprise Vertical Short-Drama WordPress Theme</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="docs/USER_GUIDE.md" class="hover:text-white transition">User Guide</a>
+        <a href="docs/ADMIN_GUIDE.md" class="hover:text-white transition">Admin Guide</a>
+        <a href="docs/CONFIGURATION.md" class="hover:text-white transition">Configuration</a>
+        <a href="https://github.com/arielskie/Short-TV" class="text-dynamic hover:underline font-bold">GitHub Repository</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DEMO INTERACTIVITY JAVASCRIPT -->
+  <script>
+    let userCoins = 250;
+    let isLiked = false;
+
+    function switchView(view) {
+      if (view === 'app') {
+        document.getElementById('view-app').classList.remove('hidden');
+        document.getElementById('view-admin').classList.add('hidden');
+        document.getElementById('btn-view-app').className = 'flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-dynamic text-slate-950 shadow-md';
+        document.getElementById('btn-view-admin').className = 'flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition';
+      } else {
+        document.getElementById('view-app').classList.add('hidden');
+        document.getElementById('view-admin').classList.remove('hidden');
+        document.getElementById('btn-view-admin').className = 'flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-dynamic text-slate-950 shadow-md';
+        document.getElementById('btn-view-app').className = 'flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition';
+      }
+    }
+
+    function setThemeAccent(color, glow) {
+      document.documentElement.style.setProperty('--accent-color', color);
+      document.documentElement.style.setProperty('--accent-glow', glow);
+    }
+
+    // ReelPlayer Controls
+    function openPlayer(dramaTitle, epTitle, totalEps) {
+      document.getElementById('phone-screen-home').classList.add('hidden');
+      document.getElementById('phone-screen-player').classList.remove('hidden');
+      document.getElementById('player-drama-title').innerText = dramaTitle;
+      document.getElementById('player-ep-title').innerText = epTitle;
+      document.getElementById('player-ep-num').innerText = '1';
+      document.getElementById('drawer-total-eps').innerText = totalEps;
+    }
+
+    function closePlayer() {
+      document.getElementById('phone-screen-player').classList.add('hidden');
+      document.getElementById('phone-screen-home').classList.remove('hidden');
+      closeEpisodeDrawer();
+      closeVipModal();
+    }
+
+    function toggleLike() {
+      isLiked = !isLiked;
+      const btn = document.getElementById('reel-like-btn');
+      const count = document.getElementById('reel-like-count');
+      if (isLiked) {
+        btn.classList.remove('text-slate-300', 'border-slate-700');
+        btn.classList.add('text-pink-500', 'border-pink-500');
+        count.innerText = '14.9k';
+      } else {
+        btn.classList.remove('text-pink-500', 'border-pink-500');
+        btn.classList.add('text-slate-300', 'border-slate-700');
+        count.innerText = '14.8k';
+      }
+    }
+
+    function triggerHeartBurst(e) {
+      toggleLike();
+      const container = document.getElementById('heart-burst-box');
+      const heart = document.createElement('div');
+      heart.className = 'fa-solid fa-heart text-5xl text-pink-500 heart-burst absolute';
+      container.appendChild(heart);
+      setTimeout(() => heart.remove(), 800);
+    }
+
+    function toggleQualityMenu() {
+      document.getElementById('player-quality-menu').classList.toggle('hidden');
+    }
+
+    function setQuality(label, isVip) {
+      document.getElementById('current-quality-label').innerText = label;
+      document.getElementById('player-quality-menu').classList.add('hidden');
+      if (isVip) {
+        alert('👑 Switched to ' + label + ' (VIP Pass Active / High Bitrate)');
+      } else {
+        alert('Switched to ' + label);
+      }
+    }
+
+    function openEpisodeDrawer() {
+      document.getElementById('episode-drawer').classList.remove('hidden');
+    }
+
+    function closeEpisodeDrawer() {
+      document.getElementById('episode-drawer').classList.add('hidden');
+    }
+
+    function selectEpisode(epNum, isLocked) {
+      closeEpisodeDrawer();
+      if (isLocked) {
+        openVipModal();
+      } else {
+        document.getElementById('player-ep-num').innerText = epNum;
+        document.getElementById('player-ep-title').innerText = 'Episode ' + epNum + ': Free Stream Unlocked';
+        alert('▶️ Playing Episode ' + epNum);
+      }
+    }
+
+    function openVipModal() {
+      document.getElementById('vip-modal').classList.remove('hidden');
+    }
+
+    function closeVipModal() {
+      document.getElementById('vip-modal').classList.add('hidden');
+    }
+
+    function unlockWithCoins() {
+      if (userCoins >= 10) {
+        userCoins -= 10;
+        document.getElementById('user-coins-display').innerText = userCoins;
+        closeVipModal();
+        alert('🪙 10 Coins deducted! Episode unlocked successfully. Remaining Coins: ' + userCoins);
+        document.getElementById('player-ep-num').innerText = '6';
+        document.getElementById('player-ep-title').innerText = 'Episode 6: Premium Episode (Unlocked)';
+      } else {
+        alert('Not enough coins! Please purchase a coin pack or get VIP.');
+      }
+    }
+
+    function unlockWithVip() {
+      closeVipModal();
+      alert('👑 VIP Pass Activated! All 65 episodes are now fully unlocked with 1080p HD stream.');
+      document.getElementById('player-ep-num').innerText = '6';
+      document.getElementById('player-ep-title').innerText = 'Episode 6: VIP All-Access Stream';
+    }
+  </script>
+</body>
+</html>
