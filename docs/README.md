@@ -10,22 +10,21 @@ Welcome to the official documentation directory for **ShortTV (Short Stream)** �
 📁 docs/
 │
 ├── 📁 admin/                                  # Administrator & Platform Management
-│   ├── 📁 settings/                           # Global Control Center Tabs
+│   ├── 📁 shorttv-hub/                        # Drama Studio (Bulk Upload, Title, Paywalls)
+│   ├── 📁 content-blocks/                     # Visual Layouts (Carousels, Shelves & Rankings)
+│   ├── 📁 endpoint-presets/                   # Auto-Scrapers & API Feeds
+│   ├── 📁 video-storage-and-cdn/              # Cloudflare R2, Gumlet & CDNs
+│   ├── 📁 settings/                           # Global Control Center (10 Setting Tabs)
 │   │   ├── 🎨 branding-and-logo.md             # Custom logos, dimensions & display modes
 │   │   ├── 🎬 splash-screen.md                 # Launch animations, background & frequency
 │   │   ├── 🛡️ security-and-protection.md       # DevTools guards, anti-theft & console guard
 │   │   ├── 💵 advertising-and-monetization.md  # Rewarded ads, interstitials & banners
 │   │   ├── 🔥 firebase-configuration.md        # Realtime DB, Auth & FCM HTTP v1 keys
 │   │   ├── ▶️ vertical-player-and-ui.md        # Player behaviors & mobile header layout
-│   │   ├── 💎 subscription-and-coins.md        # VIP pricing & episode unlock rules
+│   │   ├── 💎 subscription-and-coins-paywall.md # VIP pricing & episode unlock rules
 │   │   ├── 🔔 notifications-and-push.md        # Live FCM push broadcasts & auto-seeds
 │   │   ├── 📦 backup-and-migration.md          # Snapshot exports & system restoration
-│   │   └── 🔐 theme-license-and-lock.md        # License activation & domain lock
-│   │
-│   ├── 🎬 drama-studio-and-episodes.md         # Bulk upload, episode builder & paywalls
-│   ├── 🗂️ content-blocks-and-layout.md         # Homepage carousels, shelves & rankings
-│   ├── ⚡ endpoint-presets.md                  # Auto-scrapers & JSON feed ingestion
-│   ├── ☁️ video-storage-and-cdn.md             # Cloudflare R2, Gumlet & CDN streaming
+│   │   └── 🔐 theme-license-and-domain-lock.md # License activation & Telegram support
 │   └── 📄 README.md                            # Admin documentation index
 │
 ├── 📁 user/                                   # User & Viewer Experience
