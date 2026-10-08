@@ -137,6 +137,11 @@
 
       <!-- Header Action Links -->
       <div class="flex items-center space-x-3">
+        <a href="http://shorttv.ct.ws/" target="_blank" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black px-3.5 py-2 rounded-lg shadow-md hover:shadow-emerald-500/30 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-globe"></i>
+          <span class="hidden sm:inline">Live Web Demo</span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+        </a>
         <!-- Live Color Palette Switcher -->
         <div class="hidden lg:flex items-center space-x-1.5 bg-slate-800/60 px-2.5 py-1 rounded-lg border border-slate-700/50">
           <span class="text-[11px] text-slate-400 mr-1"><i class="fa-solid fa-palette mr-1"></i>Theme:</span>
@@ -170,6 +175,32 @@
       <p class="text-slate-400 text-sm md:text-base mt-2">
         Test the viral 9:16 mobile player, VIP Pass coin unlocks, double-tap gestures, and adaptive 1080p streaming.
       </p>
+      <!-- Dual Action Hero CTA Banners (Exact match of live request) -->
+      <div class="flex flex-wrap items-center justify-center gap-3.5 mt-6 select-none">
+        <!-- Button 1: Live Demo Site -->
+        <a href="http://shorttv.ct.ws/" target="_blank" class="inline-flex items-center rounded-xl overflow-hidden shadow-2xl hover:scale-105 transition-all duration-200 border border-emerald-500/50 group">
+          <div class="bg-slate-950 px-4 py-2.5 flex items-center gap-2 text-white font-black text-xs tracking-wider border-r border-slate-800">
+            <i class="fa-brands fa-chrome text-emerald-400 text-sm group-hover:rotate-12 transition"></i>
+            <span>🚀 LIVE DEMO</span>
+          </div>
+          <div class="bg-gradient-to-r from-emerald-500 to-teal-400 px-5 py-2.5 text-slate-950 font-black text-xs tracking-wider uppercase flex items-center gap-2">
+            <span>EXPLORE SHORTTV ONLINE</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[11px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition"></i>
+          </div>
+        </a>
+
+        <!-- Button 2: WordPress Admin Simulator -->
+        <button onclick="switchView('admin')" class="inline-flex items-center rounded-xl overflow-hidden shadow-2xl hover:scale-105 transition-all duration-200 border border-sky-500/50 group cursor-pointer">
+          <div class="bg-slate-950 px-4 py-2.5 flex items-center gap-2 text-white font-black text-xs tracking-wider border-r border-slate-800">
+            <i class="fa-brands fa-wordpress text-sky-400 text-sm group-hover:rotate-12 transition"></i>
+            <span>⚙️ ADMIN PANEL</span>
+          </div>
+          <div class="bg-gradient-to-r from-sky-500 to-blue-600 px-5 py-2.5 text-white font-black text-xs tracking-wider uppercase flex items-center gap-2">
+            <span>TEST SIMULATOR</span>
+            <i class="fa-solid fa-sliders text-[11px]"></i>
+          </div>
+        </button>
+      </div>
     </div>
 
     <!-- Dual Layout: Phone Mockup (Center/Left) + Live Controls & Specs (Right) -->

@@ -1,5 +1,9 @@
 # 🎬 ShortTV — Complete Documentation Hub
 
+[![Live Demo](https://img.shields.io/badge/🚀_LIVE_DEMO-EXPLORE_SHORTTV_ONLINE-00df82?style=for-the-badge&logo=googlechrome&logoColor=white)](http://shorttv.ct.ws/)
+[![Admin Simulator](https://img.shields.io/badge/⚙️_ADMIN_PANEL-TEST_SIMULATOR-0284c7?style=for-the-badge&logo=wordpress&logoColor=white)](https://arielskie.github.io/Short-TV/docs/admin-simulator.html)
+[![Telegram Seller](https://img.shields.io/badge/💬_BUY_LICENSE-@ayengcoding-229ED9?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/ayengcoding)
+
 Welcome to the official documentation directory for **ShortTV (Short Stream)** — the premium WordPress theme & core plugin ecosystem for episodic short dramas, vertical reels, coin paywalls, and streaming entertainment.
 
 ---

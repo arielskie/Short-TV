@@ -1,4 +1,4 @@
-# ShortTV — Short-Drama Streaming Platform for WordPress
+# ShortTV — Vertical Short-Drama Streaming Platform for WordPress
 
 <p align="center">
   <img src="assets/preview.png" alt="ShortTV Banner" width="100%" style="border-radius: 12px; box-shadow: 0 16px 48px rgba(0,0,0,0.7); margin-bottom: 20px;">
