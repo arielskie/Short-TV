@@ -25,21 +25,38 @@ Drama Studio Architecture
 
 ## 📋 Step-by-Step Drama Publishing Workflow
 
-### Step 1: Select Storage Provider & Folder
-* Select your active storage provider (**Cloudflare R2**, **Gumlet**, or **Cloudinary**).
-* Check **Auto Subfolder** so uploads are automatically organized into `short/[Drama-Title]/`.
+### Step 1: ✍️ Enter Drama Title (CRITICAL FIRST STEP)
+* **Always type your Drama Title first** (e.g., *Guardian of the Forbidden Flame*).
+> [!IMPORTANT]
+> **Why Title First?**
+> The cloud uploader uses your Drama Title to automatically name and create your cloud storage folder (e.g. `short/Guardian of the Forbidden Flame/`). If you upload before setting a title, the video files will be uploaded outside into the root bucket directory without a folder name.
 
-### Step 2: Bulk Upload Episodes
+---
+
+### Step 2: ☁️ Select Storage Provider & Verify Folder
+* Select your active storage provider (**Cloudflare R2**, **Gumlet**, or **Cloudinary**).
+* Ensure **Auto Subfolder** is checked so it targets `short/[Drama-Title]/`.
+
+---
+
+### Step 3: 🚀 Bulk Upload & Auto-Sort Episodes
 * Click **Bulk Upload Videos (R2)** and drop all your video files (`ep1.mp4`, `ep2.mp4`, etc.).
 * Click **Auto-Sort by Ep #** to sequentially order all uploaded clips from Episode 1 to N.
 
-### Step 3: Configure Episode Paywall Rules
-* Use the quick rule selector: `First 5 Free, next Coins` (or customize).
+---
+
+### Step 4: 💎 Configure Episode Paywall Rules
+* Use the quick rule selector: `First 5 Free, next Coins` (or customize per episode).
 * Click **Apply to All** to instantly lock episode 6 onwards behind coin/VIP access.
 
-### Step 4: Add Artwork & Details
-* Upload a high-resolution 9:16 vertical poster image (`1080x1920` or `720x1280` px).
-* Enter the drama storyline synopsis and genres (*Billionaire, Romance, Urban, Fantasy, Revenge*).
+---
 
-### Step 5: Publish
+### Step 5: 🖼️ Add 9:16 Artwork & Storyline Synopsis
+* Upload a high-resolution 9:16 vertical poster image (`1080x1920` or `720x1280` px).
+* Enter the drama storyline synopsis and select genres (*Billionaire, Romance, Urban, Fantasy, Revenge*).
+
+---
+
+### Step 6: 🚀 Publish Drama
 * Click the blue **Publish Drama** button in the top-right corner. The drama is immediately live on your homepage and discover feeds!
+
