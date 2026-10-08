@@ -1,6 +1,6 @@
 # 🛡️ Security & DevTools Protection Settings
 
-Protect your exclusive drama video assets, prevent unauthorized inspection, disable right-click theft, and safeguard API requests.
+Manage your platform's built-in client anti-inspection guards, shortcut locks, and domain licensing.
 
 ---
 
@@ -9,18 +9,21 @@ Go to **WordPress Admin → ShortTV Hub → Settings → Security & Protection**
 
 ---
 
-## 🛠️ Security Protections & Features
+## 🔒 Your Active Protections
 
-| Security Module | Description | Recommended State |
-|---|---|---|
-| **Disable Right-Click Context Menu** | Prevents visitors from right-clicking on videos, posters, or UI elements to save media directly. | `Enabled` |
-| **DevTools Key & Shortcut Guard** | Disables `F12`, `Ctrl+Shift+I`, `Ctrl+Shift+J`, `Ctrl+U` (View Source) on client browsers. | `Enabled` in Production |
-| **Console Auto-Clear & Anti-Debug** | Clears JavaScript developer console output and detects debugger halts. | `Enabled` |
-| **Video Source Obfuscation** | Obfuscates raw direct streaming URLs in DOM markup before player initialization. | `Enabled` |
-| **Domain Lock Protection** | Restricts theme and player execution exclusively to your authorized production domain. | `Enabled` |
-| **REST API Rate Limiting** | Throttles excessive spam requests to WordPress REST endpoints. | `Enabled` |
+Your platform has **two core security layers**:
+
+### 1. 🛡️ Anti-Inspection & Right-Click Guard (Under *Security & Protection*)
+When enabled (`Allow Right-Click & Inspect Element` is unchecked):
+* 🚫 **Right-Click Context Menu Block:** Prevents visitors from right-clicking on videos, posters, or UI elements.
+* 🚫 **DevTools Hotkey Locks:** Blocks `F12`, `Ctrl+Shift+I` (Inspect), `Ctrl+Shift+J` (Console), `Ctrl+Shift+C` (Element Picker), and Mac `Cmd+Opt+I/J/C`.
+* 🚫 **View Source Lock:** Blocks `Ctrl+U` and `Cmd+Opt+U` (View Source).
+* 🚫 **Save Page Lock:** Blocks `Ctrl+S` and `Cmd+S` to prevent downloading offline page/media dumps.
+
+### 2. 🔐 Domain Lock Protection (Under *Theme License & Domain Lock*)
+* Restricts your theme and video engine execution strictly to your registered production domain.
 
 ---
 
-## 💡 Best Practices
-* Keep DevTools Protection **disabled** on local development/staging (`localhost`) to make debugging easy, and **enable** it on your live production server.
+## 💡 Developer Tip
+* Keep **"Allow Right-Click & Inspect Element"** checked while developing locally on `localhost` so you can use browser Developer Tools. Uncheck it when launching live to protect your content!
