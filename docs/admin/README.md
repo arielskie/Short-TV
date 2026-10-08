@@ -9,24 +9,24 @@ Welcome to the comprehensive ShortTV Administrator documentation. Every section 
 ```
 📁 docs/admin/
 │
-├── 📁 shorttv-hub/            # ShortTV Hub (Overview, Drama Catalog & Library)
-├── 📁 add-new-drama/          # + Add New Drama (Drama Studio, Bulk Upload, Paywalls)
-├── 📁 content-blocks/          # Content Blocks (Homepage Carousels, Shelves & Rankings)
-├── 📁 endpoint-presets/        # Endpoint Presets (Auto-Scrapers & API Ingestion)
-├── 📁 video-storage-and-cdn/   # Video Storage & CDN (Cloudflare R2, Gumlet, Cloudinary)
-└── 📁 settings/                # Control Center Settings (All 10 Global Tabs)
+├── 📁 all-dramas/             # 🎬 All Dramas (Catalog Management & Analytics)
+├── 📁 add-new-drama/          # ＋ Add New Drama (Drama Studio, Bulk Upload, Paywalls)
+├── 📁 content-blocks/          # 🎞️ Content Blocks (Homepage Carousels, Shelves & Rankings)
+├── 📁 endpoint-presets/        # ⚡ Endpoint Presets (Auto-Scrapers & API Ingestion)
+├── 📁 video-storage-and-cdn/   # ☁️ Video Storage & CDN (Cloudflare R2, Gumlet, Cloudinary)
+└── 📁 settings/                # ⚙️ Settings (All 10 Global Control Tabs)
 ```
 
 ---
 
-### 1. 📂 [ShortTV Hub](shorttv-hub/dramas-catalog-and-stats.md)
-* [📂 Drama Catalog & Statistics](shorttv-hub/dramas-catalog-and-stats.md) — Drama catalog management, engagement metrics (views/likes/bookmarks), and quick batch operations.
+### 1. 🎬 [All Dramas](all-dramas/all-dramas-management.md)
+* [🎬 All Dramas Management & Analytics](all-dramas/all-dramas-management.md) — Drama catalog table, engagement metrics (views/likes), storage provider filters, pricing rules, and Quick Edit modal.
 
-### 2. 🎬 [+ Add New Drama](add-new-drama/drama-studio-guide.md)
-* [🎬 Drama Studio Guide](add-new-drama/drama-studio-guide.md) — Title setup, Cloudflare R2 / Gumlet bulk upload, episode sequencing, 9:16 artwork, pricing presets, and JSON schema syncing.
+### 2. ＋ [Add New Drama](add-new-drama/drama-studio-guide.md)
+* [＋ Drama Studio Guide](add-new-drama/drama-studio-guide.md) — Title setup, Cloudflare R2 / Gumlet bulk upload, episode sequencing, 9:16 artwork, pricing presets, and JSON schema syncing.
 
 ### 3. 🎞️ [Content Blocks](content-blocks/content-blocks-and-layout.md)
-* [🗂️ Content Blocks & Layouts](content-blocks/content-blocks-and-layout.md) — Customizing the homepage billboard hero, shelves, and rankings.
+* [🎞️ Content Blocks & Layouts](content-blocks/content-blocks-and-layout.md) — Customizing the homepage billboard hero, shelves, and rankings.
 
 ### 4. ⚡ [Endpoint Presets](endpoint-presets/endpoint-presets.md)
 * [⚡ Endpoint Presets](endpoint-presets/endpoint-presets.md) — Automated drama catalog ingestion and endpoint diagnostics.

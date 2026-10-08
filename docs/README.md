@@ -10,12 +10,12 @@ Welcome to the official documentation directory for **ShortTV (Short Stream)** �
 📁 docs/
 │
 ├── 📁 admin/                                  # Administrator & Platform Management
-│   ├── 📁 shorttv-hub/                        # Drama Catalog & Library Management
-│   ├── 📁 add-new-drama/                      # Drama Studio (Bulk Upload, Title, Paywalls)
-│   ├── 📁 content-blocks/                     # Visual Layouts (Carousels, Shelves & Rankings)
-│   ├── 📁 endpoint-presets/                   # Auto-Scrapers & API Feeds
-│   ├── 📁 video-storage-and-cdn/              # Cloudflare R2, Gumlet & CDNs
-│   ├── 📁 settings/                           # Global Control Center (10 Setting Tabs)
+│   ├── 📁 all-dramas/                         # 🎬 All Dramas (Catalog Management & Analytics)
+│   ├── 📁 add-new-drama/                      # ＋ Add New Drama (Drama Studio & Uploader)
+│   ├── 📁 content-blocks/                     # 🎞️ Visual Layouts & Shelf Builder
+│   ├── 📁 endpoint-presets/                   # ⚡ Auto-Scrapers & Query API Feeds
+│   ├── 📁 video-storage-and-cdn/              # ☁️ Cloudflare R2, Gumlet & Cloudinary
+│   ├── 📁 settings/                           # ⚙️ Global Control Center (10 Setting Tabs)
 │   │   ├── 🎨 branding-and-logo.md             # Custom logos, dimensions & display modes
 │   │   ├── 🎬 splash-screen.md                 # Launch animations, background & frequency
 │   │   ├── 🛡️ security-and-protection.md       # DevTools guards, anti-theft & console guard
@@ -50,6 +50,7 @@ Welcome to the official documentation directory for **ShortTV (Short Stream)** �
 ## ⚡ Quick Navigation Links
 
 * **Admin Documentation:** [`docs/admin/README.md`](admin/README.md)
+* **All Dramas Catalog:** [`docs/admin/all-dramas/all-dramas-management.md`](admin/all-dramas/all-dramas-management.md)
 * **Add New Drama Studio:** [`docs/admin/add-new-drama/drama-studio-guide.md`](admin/add-new-drama/drama-studio-guide.md)
 * **Global Settings Guides:** [`docs/admin/settings/`](admin/settings/)
 * **User & Viewer Features:** [`docs/user/README.md`](user/README.md)
