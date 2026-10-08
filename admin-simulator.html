@@ -2897,23 +2897,23 @@
               </div>
 
               <!-- Top Bar Row (Live Synced Container) -->
-              <div class="flex items-center justify-between px-1 py-1">
+              <div class="flex items-center justify-between px-1 py-1 gap-2">
                 
                 <!-- Left: Brand Logo -->
-                <div id="preview-brand-logo" class="flex items-center">
+                <div id="preview-brand-logo" class="flex-shrink-0 flex items-center">
                   <img src="../assets/shorttv-logo.png" alt="ShortTV" class="h-7 w-auto object-contain transition-transform hover:scale-105">
                 </div>
 
-                <!-- Right: Action Icons Container (Live Reordered) -->
-                <div id="preview-icons-container" class="flex items-center gap-3.5 text-slate-200 text-sm">
-                  <!-- Synced by JS -->
+                <!-- Right: Action Icons Container (Live Reordered & Auto-Expanding Search) -->
+                <div id="preview-icons-container" class="flex-1 flex items-center justify-end text-slate-200 text-sm min-w-0" style="gap: 5px;">
+                  <!-- Synced dynamically by JS -->
                 </div>
 
               </div>
 
               <!-- Horizontal Scrolling Genre Chips Bar -->
               <div class="mt-3.5 pt-2.5 border-t border-slate-800/80 flex items-center gap-4 text-xs font-medium overflow-x-auto pb-1 scrollbar-none" id="preview-genres-container">
-                <!-- Synced by JS -->
+                <!-- Synced dynamically by JS -->
               </div>
 
             </div>
@@ -2969,6 +2969,26 @@
                 <span class="font-bold text-white text-xs">Coins Pill</span>
                 <input type="checkbox" checked onchange="toggleHeaderItem('coins', this.checked)" class="ml-1 text-sky-500 rounded bg-slate-950 border-slate-700 cursor-pointer">
               </div>
+            </div>
+          </div>
+
+          <!-- ================= 2.5 ICON SPACING / GAP ADJUSTMENT ================= -->
+          <div class="bg-slate-800/90 border border-slate-700/70 rounded-2xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-700/60">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-arrows-left-right text-sky-400"></i>
+                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Mobile Icon Spacing &amp; Dynamic Search Bar Expansion</h4>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-slate-400 font-medium">Icon Gap:</span>
+                <span id="mobile-gap-badge" class="bg-sky-500/20 text-sky-400 border border-sky-500/30 font-mono font-bold text-xs px-2.5 py-0.5 rounded-lg">5px</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed">Customize horizontal spacing between mobile header icons. Lower spacing leaves maximum room for the live auto-expanding search box. When buttons (e.g. Language or History) are toggled off, the search box automatically expands to fill 100% of the freed space while preserving tight gap spacing.</p>
+            <div class="flex items-center gap-4 pt-2">
+              <span class="text-[11px] font-mono text-slate-400 font-bold">2px (Compact)</span>
+              <input type="range" id="mobile-icon-gap-slider" min="2" max="16" value="5" step="1" oninput="updateMobileIconGap(this.value)" class="flex-1 accent-sky-500 cursor-pointer h-2 bg-slate-950 rounded-lg">
+              <span class="text-[11px] font-mono text-slate-400 font-bold">16px (Spacious)</span>
             </div>
           </div>
 
@@ -4446,6 +4466,232 @@
       }
     }
 
+    // ================= MOBILE HEADER STUDIO LIVE SYNC & DRAG-DROP =================
+    let mobileHeaderState = {
+      items: [
+        { id: 'search', name: 'Search', icon: 'fa-solid fa-magnifying-glass', color: 'text-sky-400', enabled: true },
+        { id: 'language', name: 'Language', icon: 'fa-solid fa-globe', color: 'text-indigo-400', enabled: true },
+        { id: 'mylist', name: 'My List', icon: 'fa-regular fa-bookmark', color: 'text-pink-400', enabled: true },
+        { id: 'history', name: 'History', icon: 'fa-regular fa-clock', color: 'text-emerald-400', enabled: true },
+        { id: 'coins', name: 'Coins Pill', icon: 'fa-solid fa-coins', color: 'text-amber-400', enabled: true }
+      ],
+      iconGap: 5,
+      genres: ['Big Shot', 'Urban', 'Romance', 'Billionaire', 'Revenge', 'Action', 'CEO', 'Fantasy']
+    };
+
+    function updateMobileIconGap(val) {
+      mobileHeaderState.iconGap = parseInt(val, 10) || 5;
+      const badge = document.getElementById('mobile-gap-badge');
+      if (badge) badge.innerText = mobileHeaderState.iconGap + 'px';
+      const container = document.getElementById('preview-icons-container');
+      if (container) container.style.gap = mobileHeaderState.iconGap + 'px';
+      triggerSaveToast('Mobile Icon Spacing set to ' + mobileHeaderState.iconGap + 'px');
+    }
+
+    function renderMobileHeaderPreview() {
+      const container = document.getElementById('preview-icons-container');
+      if (!container) return;
+      container.style.gap = (mobileHeaderState.iconGap || 5) + 'px';
+      let html = '';
+
+      mobileHeaderState.items.forEach(item => {
+        if (!item.enabled) return;
+        if (item.id === 'search') {
+          html += `<div class="header-preview-item preview-search-box flex-1 min-w-[60px] max-w-full h-7 px-2.5 bg-slate-900/90 border border-slate-700 rounded-lg flex items-center gap-1.5 text-[11px] text-slate-400 transition-all shadow-inner"><i class="fa-solid fa-magnifying-glass text-[10px] text-slate-500"></i><span class="truncate">Search drama...</span></div>`;
+        } else if (item.id === 'language') {
+          html += `<div class="header-preview-item preview-lang-btn flex-shrink-0 w-7 h-7 bg-slate-900/90 border border-slate-700 hover:border-indigo-500/50 rounded-lg flex items-center justify-center text-xs text-indigo-400 transition shadow-sm"><i class="fa-solid fa-globe"></i></div>`;
+        } else if (item.id === 'mylist') {
+          html += `<div class="header-preview-item preview-mylist-btn flex-shrink-0 w-7 h-7 bg-slate-900/90 border border-slate-700 hover:border-pink-500/50 rounded-lg flex items-center justify-center text-xs text-pink-400 transition shadow-sm"><i class="fa-regular fa-bookmark"></i></div>`;
+        } else if (item.id === 'history') {
+          html += `<div class="header-preview-item preview-history-btn flex-shrink-0 w-7 h-7 bg-slate-900/90 border border-slate-700 hover:border-emerald-500/50 rounded-lg flex items-center justify-center text-xs text-emerald-400 transition shadow-sm"><i class="fa-regular fa-clock"></i></div>`;
+        } else if (item.id === 'coins') {
+          html += `<div class="header-preview-item preview-coins-btn flex-shrink-0 h-7 px-2 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 border border-amber-500/30 rounded-lg flex items-center gap-1 text-[11px] font-bold text-amber-400 transition shadow-sm"><i class="fa-solid fa-coins text-[10px]"></i><span>50</span></div>`;
+        }
+      });
+
+      container.innerHTML = html;
+      renderMobileGenresPreview();
+    }
+
+    function renderMobileGenresPreview() {
+      const gContainer = document.getElementById('preview-genres-container');
+      if (!gContainer) return;
+      let gHtml = '';
+      mobileHeaderState.genres.forEach((g, idx) => {
+        const isActive = idx === 0;
+        gHtml += `<button class="whitespace-nowrap transition-colors ${isActive ? 'text-white font-bold border-b-2 border-amber-400 pb-0.5' : 'text-slate-400 hover:text-white'}">${g}</button>`;
+      });
+      gContainer.innerHTML = gHtml;
+    }
+
+    function toggleHeaderItem(itemId, isChecked) {
+      const item = mobileHeaderState.items.find(i => i.id === itemId);
+      if (item) {
+        item.enabled = !!isChecked;
+        renderMobileHeaderPreview();
+        triggerSaveToast('Mobile Header: ' + (isChecked ? 'Shown' : 'Hidden') + ' ' + item.name + ' (Search expanded)');
+      }
+    }
+
+    function initMobileHeaderDragDrop() {
+      const dragContainer = document.getElementById('draggable-header-items');
+      if (!dragContainer) return;
+
+      let draggedEl = null;
+
+      dragContainer.querySelectorAll('.drag-header-item').forEach(item => {
+        item.addEventListener('dragstart', (e) => {
+          draggedEl = item;
+          item.classList.add('opacity-40', 'border-purple-500');
+          e.dataTransfer.effectAllowed = 'move';
+        });
+
+        item.addEventListener('dragend', () => {
+          if (draggedEl) draggedEl.classList.remove('opacity-40', 'border-purple-500');
+          draggedEl = null;
+          syncHeaderOrderFromDOM();
+        });
+
+        item.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          const target = item;
+          if (target && target !== draggedEl && target.classList.contains('drag-header-item')) {
+            const rect = target.getBoundingClientRect();
+            const next = (e.clientX - rect.left) / (rect.right - rect.left) > 0.5;
+            dragContainer.insertBefore(draggedEl, next ? target.nextSibling : target);
+          }
+        });
+      });
+
+      initGenreDragDrop();
+    }
+
+    function syncHeaderOrderFromDOM() {
+      const dragContainer = document.getElementById('draggable-header-items');
+      if (!dragContainer) return;
+      const newOrder = [];
+      dragContainer.querySelectorAll('.drag-header-item').forEach(el => {
+        const id = el.getAttribute('data-item');
+        const existing = mobileHeaderState.items.find(i => i.id === id);
+        if (existing) newOrder.push(existing);
+      });
+      if (newOrder.length) {
+        mobileHeaderState.items = newOrder;
+        renderMobileHeaderPreview();
+        triggerSaveToast('Mobile Header layout reordered!');
+      }
+    }
+
+    function initGenreDragDrop() {
+      const gList = document.getElementById('draggable-genres-list');
+      if (!gList) return;
+      let draggedChip = null;
+
+      gList.querySelectorAll('.drag-genre-chip').forEach(chip => {
+        chip.addEventListener('dragstart', (e) => {
+          draggedChip = chip;
+          chip.classList.add('opacity-40', 'border-amber-400');
+          e.dataTransfer.effectAllowed = 'move';
+        });
+
+        chip.addEventListener('dragend', () => {
+          if (draggedChip) draggedChip.classList.remove('opacity-40', 'border-amber-400');
+          draggedChip = null;
+          syncGenresFromDOM();
+        });
+
+        chip.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          const target = chip;
+          if (target && target !== draggedChip && target.classList.contains('drag-genre-chip')) {
+            const rect = target.getBoundingClientRect();
+            const next = (e.clientX - rect.left) / (rect.right - rect.left) > 0.5;
+            gList.insertBefore(draggedChip, next ? target.nextSibling : target);
+          }
+        });
+      });
+    }
+
+    function syncGenresFromDOM() {
+      const gList = document.getElementById('draggable-genres-list');
+      if (!gList) return;
+      const newGenres = [];
+      gList.querySelectorAll('.drag-genre-chip span').forEach(s => {
+        const txt = s.innerText.trim();
+        if (txt) newGenres.push(txt);
+      });
+      if (newGenres.length) {
+        mobileHeaderState.genres = newGenres;
+        renderMobileGenresPreview();
+        triggerSaveToast('Genre Chips reordered!');
+      }
+    }
+
+    function addNewGenreChip() {
+      const input = document.getElementById('new-genre-input');
+      const val = input ? input.value.trim() : '';
+      if (!val) return;
+      
+      mobileHeaderState.genres.push(val);
+      const gList = document.getElementById('draggable-genres-list');
+      if (gList) {
+        const div = document.createElement('div');
+        div.setAttribute('draggable', 'true');
+        div.className = 'drag-genre-chip bg-amber-500/10 text-amber-300 border border-amber-500/30 hover:border-amber-400 px-3 py-1.5 rounded-full font-semibold flex items-center gap-1.5 cursor-grab active:cursor-grabbing transition shadow-sm';
+        div.innerHTML = `<i class="fa-solid fa-grip-lines text-amber-400/50 text-[10px]"></i><span>${val}</span><button onclick="removeGenreChip(this)" class="hover:text-rose-400 ml-0.5"><i class="fa-solid fa-xmark text-[10px]"></i></button>`;
+        gList.appendChild(div);
+        initGenreDragDrop();
+      }
+      if (input) input.value = '';
+      renderMobileGenresPreview();
+      triggerSaveToast('Added Genre tag: ' + val);
+    }
+
+    function removeGenreChip(btn) {
+      const chip = btn.closest('.drag-genre-chip');
+      if (!chip) return;
+      const name = chip.querySelector('span')?.innerText.trim();
+      chip.remove();
+      if (name) {
+        mobileHeaderState.genres = mobileHeaderState.genres.filter(g => g !== name);
+        renderMobileGenresPreview();
+        triggerSaveToast('Removed Genre tag: ' + name);
+      }
+    }
+
+    function resetMobileHeaderDefaults() {
+      mobileHeaderState = {
+        items: [
+          { id: 'search', name: 'Search', icon: 'fa-solid fa-magnifying-glass', color: 'text-sky-400', enabled: true },
+          { id: 'language', name: 'Language', icon: 'fa-solid fa-globe', color: 'text-indigo-400', enabled: true },
+          { id: 'mylist', name: 'My List', icon: 'fa-regular fa-bookmark', color: 'text-pink-400', enabled: true },
+          { id: 'history', name: 'History', icon: 'fa-regular fa-clock', color: 'text-emerald-400', enabled: true },
+          { id: 'coins', name: 'Coins Pill', icon: 'fa-solid fa-coins', color: 'text-amber-400', enabled: true }
+        ],
+        iconGap: 5,
+        genres: ['Big Shot', 'Urban', 'Romance', 'Billionaire', 'Revenge', 'Action', 'CEO', 'Fantasy']
+      };
+      
+      const slider = document.getElementById('mobile-icon-gap-slider');
+      if (slider) slider.value = 5;
+      const badge = document.getElementById('mobile-gap-badge');
+      if (badge) badge.innerText = '5px';
+
+      document.querySelectorAll('#draggable-header-items input[type="checkbox"]').forEach(cb => cb.checked = true);
+      renderMobileHeaderPreview();
+      triggerSaveToast('Reset Mobile Header to factory defaults!');
+    }
+
+    // Auto-init on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderMobileHeaderPreview();
+      initMobileHeaderDragDrop();
+    });
+    // Also run immediately in case DOM is already parsed
+    renderMobileHeaderPreview();
+    initMobileHeaderDragDrop();
 </script>
 
     <!-- Quick Edit Modal Simulator -->
