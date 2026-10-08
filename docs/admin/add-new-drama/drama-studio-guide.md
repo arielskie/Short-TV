@@ -7,137 +7,112 @@ It provides direct integration with **Cloudflare R2**, **Gumlet Video**, and **C
 ---
 
 ## 📍 Where to Find
-- Go to **WordPress Admin → ShortTV Hub → + Add New Drama**.
-- Direct URL: `wp-admin/post-new.php?post_type=short_title`
+- **WordPress Admin**: Go to **ShortTV Hub → + Add New Drama**
+- **Direct URL**: `wp-admin/post-new.php?post_type=short_title`
 
 ---
 
-## 🧭 Interface Overview & Visual Layout
+## 🧭 Studio Architecture & Workflow
 
-The studio is organized into 3 high-efficiency functional rows:
-
-```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│  🎬 ShortTV Drama Studio   [ 🟡 Draft Mode / Published ]  [ ID #327 ]  [ ▶ View Watch ]│
-│                            [ 💾 Save Draft ]  [ 🚀 Publish Drama ]                     │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ 1. STORAGE & CDN TOOLBAR                                                               │
-│    Provider: [ 🟠 Cloudflare R2 ] [ 🟣 Gumlet ] [ 🔵 Cloudinary ]                      │
-│    [ ⬆️ Bulk Upload Videos ]   [ 🔢 Auto-Sort by Ep # ]   [ ⚙️ Storage Settings ]      │
-│    Folder: [ 📁 short ▾ ] [ 🔄 Refresh ] [ ➕ New Folder ]  ☑ Auto Subfolder: [ Title ] │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ 2. POSTER (9:16) & DRAMA DETAILS                                                       │
-│    ┌───────────────┐  ┌───────────────────────────────────────────────────────────┐    │
-│    │               │  │  🎬 Drama Title *  (⚠️ Set Title First!)                   │    │
-│    │  Drop Poster  │  │  📖 Storyline Synopsis / Overview                         │    │
-│    │    (9:16)     │  │  🏷️ Genres (comma separated)    🌐 Language                │    │
-│    │               │  │  📅 Release Year                🔢 Total Episodes          │    │
-│    └───────────────┘  └───────────────────────────────────────────────────────────┘    │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│ 3. EPISODES & STREAM CONFIGURATION                                                     │
-│    Rule Preset: [ 🪙 First 5 Free, next Coins ▾ ] [ ⚡ Apply to All ]                  │
-│    [ 🔢 Auto-Renumber ]  [ ⚡ Convert to HLS ]  [ 🎬 Use Direct MP4 ]  [ ➕ Add Row ]   │
-│    ─────────────────────────────────────────────────────────────────────────────────   │
-│    [ Episodes List Table & Stream Links ]                                              │
-│    ─────────────────────────────────────────────────────────────────────────────────   │
-│    ▶ ⚡ Exact JSON Schema Import & Live Sync (Collapsible)                             │
-└────────────────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    A["🎬 Top Command Bar: Status (Draft/Live) & Actions"] --> B["☁️ Row 1: Storage & CDN Toolbar (R2 / Gumlet / Cloudinary)"]
+    B --> C["🖼️ Row 2: 9:16 Vertical Poster & Drama Metadata (Title, Synopsis, Genres)"]
+    C --> D["⚡ Row 3: Episodes Table, Paywall Rules (Coins/VIP), and JSON Sync"]
+    D --> E["🚀 Publish Live / Save Draft"]
 ```
 
 ---
 
 ## 🚀 1. Top Action & Command Bar
 
-The sticky header bar provides essential status indicators and publishing triggers:
+The sticky header bar at the top provides quick status feedback and publishing controls:
 
-| Element | ID / Selector | Function |
-|---|---|---|
-| **Status Badge** | `.shorttv-status-badge` | Displays whether the drama is currently in `Draft Mode` or `Published Live`. |
-| **Drama ID** | `ID #327` | Unique numerical database ID assigned to the drama post. |
-| **▶ View Live Watch Page** | Link `target="_blank"` | Opens the live 9:16 ReelShort web player for testing playback and coin unlock flows. |
-| **💾 Save Draft** | `#btn-studio-save-draft` | Saves all metadata, posters, and episode links to the database without publishing to public feeds. |
-| **🚀 Publish Drama** | `#btn-studio-publish` | Instantly publishes the drama to the public homepage, search feeds, and API endpoints. |
+| Control | Description |
+|---|---|
+| **🟡 Status Badge** | Displays current post status (`Draft Mode` vs `Published Live`). |
+| **🏷️ Drama ID** | Unique database ID assigned to the series (e.g. `ID #327`). |
+| **▶ View Live Watch Page** | Opens the live 9:16 vertical ReelShort web player for testing playback. |
+| **💾 Save Draft** | Saves changes without making the drama visible on public feeds. |
+| **🚀 Publish Drama** | Deploys the drama live to homepage shelves, search, and API feeds. |
 
 ---
 
 ## ☁️ 2. Row 1: Storage & CDN Toolbar
 
-ShortTV features native multi-cloud storage orchestration with zero coding required:
+ShortTV features native multi-cloud storage orchestration with zero code required:
 
-### A. Provider Switcher
-Switch active storage destination tabs with 1 click:
-- 🟠 **Cloudflare R2**: High-performance, zero egress fee S3-compatible cloud object storage.
-- 🟣 **Gumlet Video**: Specialized HLS video transcoding with automatic DRM & multi-bitrate delivery.
-- 🔵 **Cloudinary**: Global cloud media management with video transformations.
+### Storage Provider Tabs
 
-### B. Bulk Upload & Sorting Tools
-- **`Bulk Upload Videos` Button**: Launches the multi-file selector. Drag and drop 50 to 100+ video files simultaneously (`.mp4`, `.mov`, `.mkv`, `.m3u8`).
-- **`🔢 Auto-Sort by Ep #`**: Automatically sorts all episode rows in numerical ascending order based on filename (e.g. `ep01.mp4`, `ep02.mp4` $\rightarrow$ Episode 1, Episode 2).
-- **`⚙️ Storage Settings`**: Shortcut to configure API keys and bucket credentials in `admin.php?page=short-video-storage`.
+| Provider | Color Badge | Best For |
+|---|---|---|
+| **Cloudflare R2** | `🟠 Orange` | Direct high-speed streaming with zero egress fees (S3-compatible). |
+| **Gumlet Video** | `🟣 Purple` | Automated HLS transcoding, DRM security, and adaptive bitrate delivery. |
+| **Cloudinary** | `🔵 Blue` | Cloud media transformations and global CDN delivery. |
 
-### C. Folder Tree Picker & Auto-Subfolder
-- **Collapsible Tree Dropdown**: Visual folder browser displaying remote buckets and nested directories.
-- **`🔄 Refresh`**: Fetches newly created folders directly from the cloud provider API.
-- **`➕ New Folder`**: Creates a new folder on the remote cloud storage.
-- **`☑ Auto Subfolder`**: Automatically creates a dedicated subfolder matching the drama title (e.g., `short / Drama Title`).
+### Quick Actions & Folder Controls
+
+- **⬆️ Bulk Upload Videos**: Select and upload 50 to 100+ episode files simultaneously (`.mp4`, `.mov`, `.mkv`, `.m3u8`).
+- **🔢 Auto-Sort by Ep #**: Automatically detects episode numbers in filenames (e.g. `ep01.mp4`, `ep02.mp4`) and re-orders rows ascending.
+- **📁 Folder Picker Dropdown**: Visual tree dropdown showing remote cloud buckets and directories.
+- **🔄 Refresh**: Fetches newly created folders from the cloud provider API.
+- **➕ New Folder**: Creates a new folder on the remote storage bucket.
+- **☑ Auto Subfolder**: Automatically routes uploaded files into a subfolder matching the drama title.
 
 > [!IMPORTANT]
-> **Step 1: Set Drama Title First!**
-> Always type the **Drama Title** *before* clicking Bulk Upload. This guarantees the automatic subfolder generator organizes your video files into their own isolated folder in Cloudflare R2 / Gumlet.
+> **Crucial Rule: Set Drama Title First!**
+> Always type the **Drama Title** *before* clicking Bulk Upload. This guarantees the automatic subfolder generator creates and routes your video files into their own isolated folder in Cloudflare R2 / Gumlet.
 
 ---
 
 ## 🎨 3. Row 2: Poster (9:16) & Drama Metadata
 
-The two-column grid provides dedicated spaces for vertical artwork and streaming metadata:
+A balanced two-column layout for visual artwork and streaming metadata:
 
 ### Left Column: 9:16 Vertical Poster
-- **Dropzone Area**: Drag and drop any image file (`.webp`, `.jpg`, `.png`).
-- **Upload Progress Bar**: Visual loading animation during cloud upload.
-- **Upload & Media Library**:
-  - `Upload`: Uploads directly from local computer.
-  - `Media`: Selects an existing image from WordPress Media Library.
-  - `Image URL`: Allows pasting external CDN image URLs.
+- **Dropzone Area**: Drag and drop poster artwork (`.webp`, `.jpg`, `.png`).
+- **Upload Progress Bar**: Visual progress indicator during file upload.
+- **Source Options**:
+  - `Upload`: Upload image directly from your local computer.
+  - `Media`: Select from existing WordPress Media Library assets.
+  - `Image URL`: Paste direct external CDN or HTTPS image link.
 
-### Right Column: Drama Details & Metadata
-- **🎬 Drama Title (*Required)**: The primary title displayed on posters, carousels, and search.
-- **📖 Storyline Synopsis / Overview**: Captivating summary or drama hook.
-- **🏷️ Genres (comma separated)**: Tag keywords (e.g. `Billionaire, Romance, CEO, Sweet Revenge`).
-- **🌐 Language**: Audio and subtitle language (e.g. `English`, `Mandarin`, `Spanish`).
-- **Release Year**: Year of release (default `2026`).
-- **Total Episodes**: Total count of episodes in the series (e.g. `60` or `100`).
+### Right Column: Drama Details & Information
+- **🎬 Drama Title (*Required)**: Main title displayed across cards, banners, and watch player.
+- **📖 Storyline Synopsis / Overview**: Engaging storyline summary or cliffhanger hook.
+- **🏷️ Genres (comma separated)**: Mood and category tags (e.g. `Billionaire, Romance, CEO, Sweet Revenge`).
+- **🌐 Language**: Audio/subtitle language (e.g. `English`, `Mandarin`, `Spanish`).
+- **Release Year**: Year of premiere (default `2026`).
+- **Total Episodes**: Total planned episode count (e.g. `60` or `100`).
 
 ---
 
 ## ⚡ 4. Row 3: Episodes & Stream Configuration
 
-### A. Bulk Access & Pricing Rule Presets
+### Bulk Access & Pricing Rule Presets
 
-Quickly apply monetization and paywall rules across the entire drama with 1 click:
+Apply monetization and paywall rules across the entire drama in 1 click using the preset selector:
 
-```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│  Rule: [ 🪙 First 5 Free, next Coins ▾ ]   [ ⚡ Apply to All ]                         │
-└────────────────────────────────────────────────────────────────────────────────────────┘
-```
-
-| Rule Preset | Mode Key | Description & Strategy |
+| Rule Preset | Mode Key | Strategy & Behavior |
 |---|---|---|
-| **🪙 First 5 Free, next Coins** *(Recommended)* | `coins_5free` | Hook viewers with episodes 1 to 5 completely free, then require coins (e.g. 5-10 coins) for episode 6 onwards. |
-| **👑 All Episodes VIP** | `vip_all` | Restricts every episode to active VIP / Monthly subscribers. |
-| **🟢 All Episodes Free** | `free_all` | Opens all episodes 100% free with no coins or login required. |
+| **🪙 First 5 Free, next Coins** *(Recommended)* | `coins_5free` | Ep 1–5 are completely free to hook viewers; Ep 6 onwards requires coins to unlock. |
+| **👑 All Episodes VIP** | `vip_all` | All episodes locked exclusively for VIP / Monthly subscribers. |
+| **🟢 All Episodes Free** | `free_all` | 100% free streaming for all users with no coins or login required. |
 | **🪙 All Episodes Coins** | `coins_all` | Every single episode requires coins to unlock. |
 
-### B. Episode Stream URL Format Conversion
-- **`⚡ Convert MP4 to HLS`**: Automatically swaps `.mp4` URLs to adaptive bitrate `.m3u8` HLS streaming endpoints.
-- **`🎬 Use Direct MP4 (.mp4)`**: Switches all episode streams back to direct MP4 file URLs for Cloudflare R2 or direct CDN playback.
+### Batch Format Tools
+
+- **`⚡ Apply to All`**: Instantly updates all episode rows to match the selected pricing rule.
+- **`⚡ Convert MP4 to HLS`**: Converts `.mp4` URLs to `.m3u8` adaptive streaming playlists.
+- **`🎬 Use Direct MP4 (.mp4)`**: Resets streams to direct MP4 links for Cloudflare R2 direct playback.
 - **`🔢 Auto-Renumber (1 to N)`**: Cleans up and re-sequences episode numbers sequentially.
+- **`➕ Add Episode Row`**: Manually appends a single episode row.
 
 ---
 
-## 📋 5. Collapsible JSON Schema Import & Live Sync
+## 📋 5. JSON Schema Import & Live Sync
 
-For programmatic integrations, automated scrapers, and mass migrations, expand the **⚡ Exact JSON Schema Import & Live Sync** drawer:
+Expand the **⚡ Exact JSON Schema Import & Live Sync** drawer to inspect, export, or import entire drama datasets:
 
 ```json
 {
@@ -179,5 +154,5 @@ For programmatic integrations, automated scrapers, and mass migrations, expand t
 }
 ```
 
-- **`📋 Copy JSON`**: Exports the entire drama structure to clipboard.
-- **`⚡ Sync Form from JSON`**: Parses pasted JSON and instantly populates the title, synopsis, poster, genres, and all episode rows automatically.
+- **`📋 Copy JSON`**: Copies the entire drama schema to your clipboard.
+- **`⚡ Sync Form from JSON`**: Parses pasted JSON and instantly populates the form, posters, and all episode stream rows.

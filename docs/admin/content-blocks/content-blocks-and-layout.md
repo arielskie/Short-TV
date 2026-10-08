@@ -11,12 +11,11 @@ Go to **WordPress Admin → ShortTV Hub → Content Blocks** (or `admin.php?page
 
 ## 🧭 The 3 Division Layout Selector
 
-At the top of the Section Builder, you can switch between three distinct layout contexts:
+At the top of the Section Builder, switch between three distinct layout contexts:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│  [ 🖥️ Desktop Header ]    [ 📱 Mobile Header ]    [ 📱 Mobile Bottom Menu ]  │
-└─────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    A["🖥️ Desktop Header"] --> B["📱 Mobile Header"] --> C["📱 Mobile Bottom Menu"]
 ```
 
 | Division | Target Audience | Primary Function |
@@ -75,21 +74,17 @@ Clicking the **`⚙️ Manage Tabs & Icons`** button opens an interactive tab ma
 
 ## 📊 Section Configuration Table & Shelf Builder
 
-The main table lists every content row rendered on the active tab page in exact display order from top to bottom.
+The main table lists every content row rendered on the active tab page in exact display order from top to bottom:
 
-```
-┌───┬──────────────────────────┬──────────────────────────┬────────────────────────┬───────────┬─────────┬─────────┐
-│ # │ Section Title            │ Card Layout Style        │ Content Source         │ Override  │ Limit   │ Enabled │
-├───┼──────────────────────────┼──────────────────────────┼────────────────────────┼───────────┼─────────┼─────────┤
-│ 1 │ Hero Slider Showcase     │ 🎬 Hero Slider           │ Hero Slider (Featured) │ —         │ 5       │  [x]    │
-│ 2 │ Most Popular 🌍          │ 🔟 TOP 10 (Giant Ranks)  │ Most Viewed (views)    │ —         │ 10      │  [x]    │
-│ 3 │ Short VIP 👑             │ 📱 Vertical 9:16 Poster  │ VIP Only (vip)         │ —         │ 10      │  [x]    │
-│ 4 │ Top Rated 🏆             │ 🏆 Leaderboard Podium    │ Top Rated (rating)     │ —         │ 10      │  [x]    │
-│ 5 │ New Releases 🚀          │ 📱 Vertical 9:16 Poster  │ New Releases (latest)  │ —         │ 10      │  [x]    │
-│ 6 │ Binge-Ready 🔥           │ 🖥️ Landscape 16:9 Banner │ Binge-Ready (episodes) │ —         │ 10      │  [x]    │
-│ 7 │ Romance & Passion 💕     │ 📱 Vertical 9:16 Poster  │ genre/romance          │ —         │ 10      │  [x]    │
-└───┴──────────────────────────┴──────────────────────────┴────────────────────────┴───────────┴─────────┴─────────┘
-```
+| # | Section Title | Card Layout Style | Content Source | Override | Limit | Enabled |
+|:---:|---|---|---|:---:|:---:|:---:|
+| **1** | Hero Slider Showcase | 🎬 Hero Slider | Hero Slider (Featured) | — | 5 | ✅ |
+| **2** | Most Popular 🌍 | 🔟 TOP 10 (Giant Ranks) | Most Viewed (`views`) | — | 10 | ✅ |
+| **3** | Short VIP 👑 | 📱 Vertical 9:16 Poster | VIP Only (`vip`) | — | 10 | ✅ |
+| **4** | Top Rated 🏆 | 🏆 Leaderboard Podium | Top Rated (`rating`) | — | 10 | ✅ |
+| **5** | New Releases 🚀 | 📱 Vertical 9:16 Poster | New Releases (`latest`) | — | 10 | ✅ |
+| **6** | Binge-Ready 🔥 | 🖥️ Landscape 16:9 Banner | Binge-Ready (`episodes`) | — | 10 | ✅ |
+| **7** | Romance & Passion 💕 | 📱 Vertical 9:16 Poster | `genre/romance` | — | 10 | ✅ |
 
 ---
 
@@ -163,13 +158,11 @@ The **Content Source** dropdown defines the automated database query or filter u
 
 ---
 
-## 🔄 Quick Action Bar Summary
+## 🔄 Quick Action Bar Reference
 
-```
-[ ➕ Add new row ]   [ 🔄 Reset to defaults ]   [ ⚡ Manage endpoint presets ]   [ 💾 Save configuration ]
-```
-
-- **`➕ Add new row`**: Appends an empty customizable row.
-- **`🔄 Reset to defaults`**: Prompts confirmation and restores out-of-the-box layout.
-- **`⚡ Manage endpoint presets`**: Direct shortcut to the **Endpoint Presets Studio** (`admin.php?page=short-presets`).
-- **`💾 Save configuration`**: Triggers AJAX write and clears frontend transient cache.
+| Button | Function & Behavior |
+|---|---|
+| **`➕ Add new row`** | Appends an empty customizable row to the shelf builder. |
+| **`🔄 Reset to defaults`** | Prompts confirmation and restores the default ShortTV shelf configuration. |
+| **`⚡ Manage endpoint presets`** | Direct shortcut to the **Endpoint Presets Studio** (`admin.php?page=short-presets`). |
+| **`💾 Save configuration`** | Triggers AJAX write and clears frontend transient cache. |
