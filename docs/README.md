@@ -10,7 +10,8 @@ Welcome to the official documentation directory for **ShortTV (Short Stream)** �
 📁 docs/
 │
 ├── 📁 admin/                                  # Administrator & Platform Management
-│   ├── 📁 shorttv-hub/                        # Drama Studio (Bulk Upload, Title, Paywalls)
+│   ├── 📁 shorttv-hub/                        # Drama Catalog & Library Management
+│   ├── 📁 add-new-drama/                      # Drama Studio (Bulk Upload, Title, Paywalls)
 │   ├── 📁 content-blocks/                     # Visual Layouts (Carousels, Shelves & Rankings)
 │   ├── 📁 endpoint-presets/                   # Auto-Scrapers & API Feeds
 │   ├── 📁 video-storage-and-cdn/              # Cloudflare R2, Gumlet & CDNs
@@ -49,6 +50,7 @@ Welcome to the official documentation directory for **ShortTV (Short Stream)** �
 ## ⚡ Quick Navigation Links
 
 * **Admin Documentation:** [`docs/admin/README.md`](admin/README.md)
+* **Add New Drama Studio:** [`docs/admin/add-new-drama/drama-studio-guide.md`](admin/add-new-drama/drama-studio-guide.md)
 * **Global Settings Guides:** [`docs/admin/settings/`](admin/settings/)
 * **User & Viewer Features:** [`docs/user/README.md`](user/README.md)
 * **Installation & Firebase Setup:** [`docs/setup/README.md`](setup/README.md)
@@ -61,4 +63,3 @@ Welcome to the official documentation directory for **ShortTV (Short Stream)** �
 * **Developer / Seller:** Ariel (@ayengcoding)
 * **Telegram:** [https://t.me/ayengcoding](https://t.me/ayengcoding) (`@ayengcoding`)
 * **Support & Custom Development:** Direct message on Telegram for instant license keys, installation assistance, and bespoke feature requests.
-

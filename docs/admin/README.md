@@ -9,7 +9,8 @@ Welcome to the comprehensive ShortTV Administrator documentation. Every section 
 ```
 📁 docs/admin/
 │
-├── 📁 shorttv-hub/            # ShortTV Hub & Drama Studio (Uploading, Episodes, Metadata)
+├── 📁 shorttv-hub/            # ShortTV Hub (Overview, Drama Catalog & Library)
+├── 📁 add-new-drama/          # + Add New Drama (Drama Studio, Bulk Upload, Paywalls)
 ├── 📁 content-blocks/          # Content Blocks (Homepage Carousels, Shelves & Rankings)
 ├── 📁 endpoint-presets/        # Endpoint Presets (Auto-Scrapers & API Ingestion)
 ├── 📁 video-storage-and-cdn/   # Video Storage & CDN (Cloudflare R2, Gumlet, Cloudinary)
@@ -18,19 +19,22 @@ Welcome to the comprehensive ShortTV Administrator documentation. Every section 
 
 ---
 
-### 1. 🎬 [ShortTV Hub & Drama Studio](shorttv-hub/drama-studio-and-episodes.md)
-* [🎬 Drama Studio & Episodes](shorttv-hub/drama-studio-and-episodes.md) — Title setup, bulk upload, episode sequencing, artwork, and paywalls.
+### 1. 📂 [ShortTV Hub](shorttv-hub/README.md)
+* [📂 ShortTV Hub Overview](shorttv-hub/README.md) — Drama catalog management, batch operations, and drama listings.
 
-### 2. 🎞️ [Content Blocks](content-blocks/content-blocks-and-layout.md)
+### 2. 🎬 [+ Add New Drama](add-new-drama/drama-studio-guide.md)
+* [🎬 Drama Studio Guide](add-new-drama/drama-studio-guide.md) — Title setup, Cloudflare R2 / Gumlet bulk upload, episode sequencing, 9:16 artwork, pricing presets, and JSON schema syncing.
+
+### 3. 🎞️ [Content Blocks](content-blocks/content-blocks-and-layout.md)
 * [🗂️ Content Blocks & Layouts](content-blocks/content-blocks-and-layout.md) — Customizing the homepage billboard hero, shelves, and rankings.
 
-### 3. ⚡ [Endpoint Presets](endpoint-presets/endpoint-presets.md)
+### 4. ⚡ [Endpoint Presets](endpoint-presets/endpoint-presets.md)
 * [⚡ Endpoint Presets](endpoint-presets/endpoint-presets.md) — Automated drama catalog ingestion and endpoint diagnostics.
 
-### 4. ☁️ [Video Storage & CDN](video-storage-and-cdn/video-storage-and-cdn.md)
+### 5. ☁️ [Video Storage & CDN](video-storage-and-cdn/video-storage-and-cdn.md)
 * [☁️ Video Storage & CDN](video-storage-and-cdn/video-storage-and-cdn.md) — Connecting Cloudflare R2, Gumlet, and high-speed streaming CDNs.
 
-### 5. ⚙️ [Global Settings (`settings/`)](settings/README.md)
+### 6. ⚙️ [Global Settings (`settings/`)](settings/README.md)
 * [🎨 Branding & Logo](settings/branding-and-logo.md) — Custom logo upload, display modes, desktop & mobile dimensions.
 * [🎬 Splash Screen](settings/splash-screen.md) — Launch animations, background aesthetics, and frequency controls.
 * [🛡️ Security & Protection](settings/security-and-protection.md) — Anti-theft protection, DevTools guard, and console anti-debug.
