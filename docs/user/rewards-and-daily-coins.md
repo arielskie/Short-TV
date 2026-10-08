@@ -1,25 +1,33 @@
-# 🎁 Rewards & Daily Coin Center
+# 🎁 Rewards, Check-In Streaks & Coins System
 
-Gamified loyalty rewards, daily check-in streaks, task completions, and rewarded ads that allow free viewers to earn coin currency for episode unlocks.
-
----
-
-## 📍 Where Users Access
-Click the **Coin Wallet badge (💰)** in the top header or visit **`/account/#rewards`**.
+ShortTV incorporates an addictive gamification and loyalty system to maximize daily active users (DAU) and monetization.
 
 ---
 
-## 🛠️ Earning Mechanisms
+## 🪙 Coin Economy Mechanics
 
-| Task | Coins Earned | Frequency |
-|---|---|---|
-| **Daily Login Check-In** | `+100` Coins (Streak multiplier up to +300 on Day 7) | Once per 24 hours |
-| **Watch Rewarded Sponsor Video** | `+50` Coins per completed ad | Up to 5 times per day |
-| **Complete Profile Setup** | `+200` Coins bonus | One-time reward |
-| **Share Drama with Friends** | `+50` Coins | Up to 3 times per day |
+```mermaid
+flowchart LR
+    A["📅 7-Day Check-in Streak"] --> D["🪙 Virtual Coins Wallet"]
+    B["🎬 Watch 10m Video Milestone"] --> D
+    C["📺 Rewarded Video Ads"] --> D
+    D --> E["🔓 Unlock VIP Paywall Episodes"]
+```
 
----
+### 1. 7-Day Check-in Streak
+* **Day 1**: +10 Coins
+* **Day 2**: +15 Coins
+* **Day 3**: +20 Coins
+* **Day 4**: +25 Coins
+* **Day 5**: +30 Coins
+* **Day 6**: +40 Coins
+* **Day 7 (Jackpot)**: +100 Coins + 24hr VIP Pass
+* *Breaking a streak resets the counter back to Day 1.*
 
-## 🪙 Spending Coins
-* Free viewers can tap **Unlock with 100 Coins** when reaching a locked VIP episode.
-* Unlocked episodes remain permanently accessible on the user's account.
+### 2. Daily Watch Time Quests
+* **Watch 5 Minutes**: +15 Coins
+* **Watch 15 Minutes**: +30 Coins
+* **Watch 30 Minutes**: +50 Coins
+
+### 3. Rewarded Video Ads
+* Viewers can watch short 15–30 second sponsored ads to earn +10 coins per view (configurable limit: up to 10 ads per day).

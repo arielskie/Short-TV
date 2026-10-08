@@ -1,40 +1,71 @@
-# ❓ FAQ & Troubleshooting Guide
+# ❓ Troubleshooting & Frequently Asked Questions
 
-Solutions for common installation, streaming playback, push notification, and permissions questions.
-
----
-
-## ❓ Push Notifications & FCM
-
-### Q: Why does it show "0 Push Subscribers" in the admin dashboard?
-**A:** Subscribers are real browser/mobile devices that have granted notification permissions. 
-1. Push notifications **cannot** register in **Incognito/Private** mode (Chrome disables Service Worker push in Incognito for privacy).
-2. Open the site in a normal tab, click **Allow** on the bottom-left prompt banner, and approve the browser prompt.
-3. Refresh the Admin page to see your updated subscriber count.
-
-### Q: Which credentials do I need for push notifications?
-**A:** 
-1. **Firebase Service Account JSON** (from Firebase Console → Project Settings → Service Accounts → Generate new private key).
-2. **Web Push VAPID Key** (from Firebase Console → Project Settings → Cloud Messaging → Web configuration).
+Comprehensive guide to resolving video CDN issues, CORS errors, image processing exceptions, PWA cache flushing, and general platform questions.
 
 ---
 
-## ❓ Video Playback & Streaming
+## ❓ Frequently Asked Questions
 
-### Q: What video format should I upload?
-**A:** ShortTV natively supports:
-* Vertical MP4 (`1080x1920` or `720x1280` px) with H.264 video codec and AAC audio.
-* HLS (`.m3u8`) streaming playlists for adaptive bitrate playback.
+### 1. Which video streaming formats and hosts are supported?
+ShortTV natively supports:
+* **Direct MP4 Files** (Vertical 9:16 portrait or 16:9 widescreen).
+* **HLS Adaptive Streams (`.m3u8`)** delivered via Cloudflare R2, Gumlet DRM, AWS CloudFront, or Cloudinary.
+* **Third-Party Video Hosts & Embeds** (Gumlet, Cloudinary, YouTube, Vimeo, Dailymotion, custom iframe embeds).
 
-### Q: Why is my video not playing on mobile?
-**A:** Ensure your storage provider (e.g. Cloudflare R2 / S3) has **CORS** enabled for your domain:
-```json
-[
-  {
-    "AllowedOrigins": ["*"],
-    "AllowedMethods": ["GET", "HEAD"],
-    "AllowedHeaders": ["*"],
-    "MaxAgeSeconds": 3600
-  }
-]
-```
+### 2. How does real-time cross-device sync work?
+ShortTV utilizes Google Firebase (Firestore and Realtime Database) coupled with intelligent local caching:
+* When a viewer watches Episode 3 at 01:25 on mobile, the timestamp is synced to their user profile in Firebase.
+* Opening the platform on a desktop or tablet immediately shows the updated progress under the **Continue Watching** shelf.
+
+### 3. Can I lock specific episodes behind a VIP paywall?
+Yes. You can configure free preview thresholds per drama (e.g., *Episodes 1–5 Free, Episode 6+ VIP/Coins*) in the Drama Studio or set global defaults in **ShortTV Hub → Settings → Subscription & Coins Paywall**.
+
+---
+
+## 🔧 Troubleshooting Common Technical Issues
+
+### ⚠️ Issue 1: "There has been an error cropping your image" in WordPress Customizer
+* **Root Cause**: The PHP `gd` or `imagick` image processing extension is disabled in your `php.ini`.
+* **Resolution**:
+  1. Open your server's `php.ini` file (in XAMPP: `C:\xampp\php\php.ini`).
+  2. Locate `;extension=gd` and remove the semicolon to enable it:
+     ```ini
+     extension=gd
+     ```
+  3. Restart Apache.
+  4. *Quick Workaround*: In the Customizer crop dialog, click **"Skip cropping"** to bypass server-side cropping.
+
+---
+
+### ⚠️ Issue 2: Video fails to load or browser console shows CORS error
+* **Root Cause**: Your video CDN bucket (e.g. Cloudflare R2 or AWS S3) lacks Cross-Origin Resource Sharing headers.
+* **Resolution**: Add this CORS rule to your storage bucket settings:
+  ```json
+  [
+    {
+      "AllowedOrigins": ["*"],
+      "AllowedMethods": ["GET", "HEAD"],
+      "AllowedHeaders": ["*"],
+      "MaxAgeSeconds": 86400
+    }
+  ]
+  ```
+
+---
+
+### ⚠️ Issue 3: PWA install prompt displays old logo or old app name
+* **Root Cause**: Chromium-based browsers aggressively cache Progressive Web App manifests on `localhost` or custom domains.
+* **Resolution**:
+  1. Open Chrome DevTools (`F12`).
+  2. Navigate to **Application → Storage**.
+  3. Click **"Clear site data"**.
+  4. Press `Ctrl + F5` to force-reload.
+
+---
+
+### ⚠️ Issue 4: 404 Error when opening `/watch`, `/genre`, or `/account`
+* **Root Cause**: WordPress rewrite rules require flushing after theme activation.
+* **Resolution**:
+  1. In WordPress Admin, navigate to **Settings → Permalinks**.
+  2. Confirm **Post name** (`/%postname%/`) is selected and click **Save Changes**.
+  3. Ensure pages with slugs `watch`, `genre`, `account`, `reward`, `leaderboard` exist under **Pages → All Pages**.

@@ -1,12 +1,20 @@
-# 👥 ShortTV User & Viewer Experience Documentation
+# 👤 User & Viewer Experience Documentation
 
-Guides and documentation explaining viewer-facing features, multi-profile management, coin reward centers, and playback features.
+Comprehensive guides covering end-user features, multi-profile switching, coin rewards, cross-device sync, and internationalization.
 
 ---
 
-## 🗂️ Table of Contents
+## 📑 User Features Index
 
-* [👤 Account & Profiles](account-and-profiles.md) — Profiles, avatars, PIN security, and kid restrictions.
-* [⏱️ Watch History & Bookmarks](watch-history-and-bookmarks.md) — Timestamp syncing, Continue Watching shelf, and My List.
-* [🎁 Rewards & Daily Coins](rewards-and-daily-coins.md) — Check-in streaks, rewarded ads, and episode unlocking.
-* [🌐 Multi-Language & Subtitles](multi-language-and-subtitles.md) — 14 global languages and subtitle styling.
+| Feature Guide | Overview |
+|---|---|
+| [👤 Account & Multi-Profiles](account-and-profiles.md) | Multi-profiles, custom avatars, 4-digit PIN lock, and Firebase authentication. |
+| [⏱️ Watch History & Bookmarks](watch-history-and-bookmarks.md) | Cross-device timestamp syncing, Continue Watching shelves, and private bookmarks. |
+| [🎁 Rewards & Daily Coins](rewards-and-daily-coins.md) | 7-day check-in streaks, watch time quests, and rewarded video ads. |
+| [🌐 Multi-Language & Subtitles](multi-language-and-subtitles.md) | 14 global UI languages, WebVTT subtitle rendering, and audio track switching. |
+
+---
+
+## 💬 Developer Support
+* **Developer / Seller:** Ariel (@ayengcoding)
+* **Telegram:** [https://t.me/ayengcoding](https://t.me/ayengcoding) (`@ayengcoding`)

@@ -1,18 +1,19 @@
-# ⏱️ Watch History & My List Bookmarks
+# ⏱️ Watch History & Bookmark Shelves
 
-Manage recently watched episodes, resume watching from exact timestamps, and bookmark favorite drama series across devices.
-
----
-
-## 📍 Where Users Access
-* **Watch History:** `/history/` or by clicking the History icon in the top header.
-* **My List / Bookmarks:** `/my-list/` or by clicking the Bookmark icon.
+ShortTV provides persistent progress synchronization across devices and one-click bookmarking.
 
 ---
 
-## 🛠️ Features Overview
+## ⚡ Smart Playback Sync
 
-* **Real-Time Timestamp Sync:** Powered by Firebase Realtime Database, viewers can pause on mobile and resume at the exact second on desktop.
-* **Continue Watching Row:** Recent unfinished dramas display a dynamic red progress indicator on the homepage.
-* **Quick Add / Remove:** 1-click bookmarking from the drama drawer or directly inside the vertical video player.
-* **Cloud Syncing:** History and lists persist across browser clears as long as the user is signed in.
+* **Sub-Second Precision**: Video progress is automatically recorded every 5 seconds during playback.
+* **Continue Watching Carousel**: Shows an interactive progress bar indicating percentage watched (e.g. *Ep 4 - 72%*).
+* **Resume Playback**: Clicking any drama from History immediately launches the vertical player at the exact timestamp where the user left off.
+
+---
+
+## 📌 My List (Bookmarks)
+
+* **1-Tap Add/Remove**: Viewers can bookmark any drama from the shelf card or vertical player overlay.
+* **Cloud Syncing**: Bookmarks are backed up to Firebase Firestore and synced across mobile PWA and desktop sessions.
+* **Offline Fallback**: Unauthenticated guest viewers retain bookmarks in browser `localStorage`.

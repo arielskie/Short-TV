@@ -1,17 +1,30 @@
-# 🌐 Multi-Language & Subtitle Customization
+# 🌐 Multi-Language & Subtitle Support
 
-Multi-language translation, subtitle display styling, and localized platform navigation for international audiences.
-
----
-
-## 📍 Where Users Access
-* Click the **Globe / Language icon** in the top navigation bar.
-* Or open **`/account/` → Language & Display Preferences**.
+ShortTV is designed for global audiences, supporting 14+ international languages and WebVTT subtitle tracks.
 
 ---
 
-## 🛠️ Supported Languages & Features
+## 🌍 Supported UI Languages
 
-* **14 Instant Global Languages:** English, Spanish, French, German, Chinese, Japanese, Korean, Tagalog, Indonesian, Portuguese, Arabic, Hindi, Russian, Vietnamese.
-* **Instant Translation:** Seamless client-side Google Translate engine integration that translates the UI instantly without reloading the video player.
-* **Closed Captions & Subtitles:** Custom font sizing (Small, Medium, Large), high-contrast background shadows, and color options (White, Yellow, Cyan) for crystal-clear readability on mobile screens.
+| Code | Language | Native Name |
+|---|---|---|
+| `en` | English | English |
+| `es` | Spanish | Español |
+| `fr` | French | Français |
+| `de` | German | Deutsch |
+| `pt` | Portuguese | Português |
+| `id` | Indonesian | Bahasa Indonesia |
+| `tl` | Tagalog / Filipino | Tagalog |
+| `vi` | Vietnamese | Tiếng Việt |
+| `th` | Thai | ไทย |
+| `ja` | Japanese | 日本語 |
+| `ko` | Korean | 한국어 |
+| `zh-CN`| Simplified Chinese | 简体中文 |
+| `zh-TW`| Traditional Chinese | 繁體中文 |
+| `ar` | Arabic (RTL) | العربية |
+
+---
+
+## 📝 Subtitle Track Controls
+* **WebVTT Subtitles**: Supports multi-language `.vtt` and `.srt` subtitle tracks.
+* **Subtitle Selector**: In the vertical player overlay, viewers can toggle subtitles on/off or switch languages in real time.
