@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="600" height="900" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e2433"/>
+      <stop offset="50%" stop-color="#121622"/>
+      <stop offset="100%" stop-color="#0a0c14"/>
+    </linearGradient>
+    <linearGradient id="shimmerOverlay" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.02)"/>
+      <stop offset="50%" stop-color="rgba(255,255,255,0.06)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.02)"/>
+    </linearGradient>
+  </defs>
+  <!-- Background Card -->
+  <rect width="600" height="900" fill="url(#cardGrad)"/>
+  
+  <!-- Subtle Cinematic Ambient Glow -->
+  <circle cx="300" cy="350" r="220" fill="rgba(255,255,255,0.02)"/>
+  
+  <!-- Skeleton Shimmer Placeholder Bars -->
+  <rect x="80" y="580" width="440" height="28" rx="14" fill="url(#shimmerOverlay)"/>
+  <rect x="120" y="628" width="360" height="20" rx="10" fill="rgba(255,255,255,0.03)"/>
+  <rect x="160" y="668" width="280" height="16" rx="8" fill="rgba(255,255,255,0.02)"/>
+  
+  <!-- Modern Clean Drama Badge -->
+  <rect x="210" y="800" width="180" height="34" rx="17" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="300" y="823" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="2">SHORT DRAMA</text>
+</svg>
