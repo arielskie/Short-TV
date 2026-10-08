@@ -19,8 +19,8 @@ Welcome to the comprehensive ShortTV Administrator documentation. Every section 
 
 ---
 
-### 1. 📂 [ShortTV Hub](shorttv-hub/README.md)
-* [📂 ShortTV Hub Overview](shorttv-hub/README.md) — Drama catalog management, batch operations, and drama listings.
+### 1. 📂 [ShortTV Hub](shorttv-hub/drama-studio-and-episodes.md)
+* [📂 ShortTV Hub & Drama Library](shorttv-hub/drama-studio-and-episodes.md) — Drama catalog management, batch operations, and drama listings.
 
 ### 2. 🎬 [+ Add New Drama](add-new-drama/drama-studio-guide.md)
 * [🎬 Drama Studio Guide](add-new-drama/drama-studio-guide.md) — Title setup, Cloudflare R2 / Gumlet bulk upload, episode sequencing, 9:16 artwork, pricing presets, and JSON schema syncing.
