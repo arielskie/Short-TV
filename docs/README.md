@@ -54,3 +54,12 @@ Welcome to the official documentation directory for **ShortTV (Short Stream)** â
 * **User & Viewer Features:** [`docs/user/README.md`](user/README.md)
 * **Installation & Firebase Setup:** [`docs/setup/README.md`](setup/README.md)
 * **Version History:** [`docs/CHANGELOG.md`](CHANGELOG.md)
+
+---
+
+## ðŸ’¬ Developer & Official Purchase Contact
+
+* **Developer / Seller:** Ariel (@ayengcoding)
+* **Telegram:** [https://t.me/ayengcoding](https://t.me/ayengcoding) (`@ayengcoding`)
+* **Support & Custom Development:** Direct message on Telegram for instant license keys, installation assistance, and bespoke feature requests.
+
