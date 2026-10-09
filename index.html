@@ -193,6 +193,30 @@
       </div>
     </div>
 
+    <!-- Dual Layout: Phone Mockup (Center/Left) + Live Controls & Specs (Right) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      
+      <!-- PHONE SIMULATOR CONTAINER (Left Side) -->
+      <div class="lg:col-span-5 flex flex-col items-center">
+        
+        <div class="phone-container">
+          <!-- Hardware Notch -->
+          <div class="phone-notch"></div>
+          
+          <!-- Inner Screen Scroll Area -->
+          <div class="relative w-full h-full overflow-hidden flex flex-col">
+
+            <!-- SCREEN A: HOME DRAMA FEED -->
+            <div id="phone-screen-home" class="flex-1 relative overflow-y-auto bg-[#0a0d14] select-none no-scrollbar">
+              <div class="relative w-full">
+                <!-- Real Mobile Screenshot -->
+                <img src="assets/mobile-ui.png" alt="ShortTV Mobile UI" class="w-full h-auto block cursor-pointer" onclick="openPlayer('Guardian of the Forbidden Flame', 'Episode 1: The Golden Mark', 15)" title="Click anywhere to launch 9:16 ReelPlayer">
+                
+                <!-- Interactive Watch History Hotspot -->
+                <div class="absolute top-[68%] inset-x-3 h-28 z-20 cursor-pointer" onclick="openPlayer('From Anvil to Throne', 'Episode 2: The Smithy Secret', 65)" title="Resume Watching"></div>
+              </div>
+            </div>
+
             <!-- SCREEN B: VERTICAL 9:16 REELPLAYER (CRISP SINGLE LAYER WITH INTERACTIVE HOTSPOTS) -->
             <div id="phone-screen-player" class="hidden flex-1 flex flex-col relative bg-black select-none text-white overflow-hidden">
               
