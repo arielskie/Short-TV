@@ -8,7 +8,23 @@ All notable changes, architectural updates, and enhancements to the ShortTV plat
 
 | Version | Release Date | Major Architectural Milestones |
 |---|---|---|
+| **v2.6.0** | 2026-10-11 | Content Protection Suite, Uniform Security Toggles, LAN Licensing & Author Attribution |
 | **v2.5.0** | 2026-10-07 | PWA Site Icon Engine, Borderless Floating Controls & Deduplication Guards |
+
+---
+
+### [2.6.0] — 2026-10-11
+#### Added
+- **Content Protection Suite**: Modular, uniform anti-tamper security controls (Checked = Enabled, Unchecked = Disabled) across client screens.
+- **Anti-Copy & Right-Click Guard**: Anti-highlight text selection, right-click context menu suppression, drag prevention, and hotkey restrictions (`Ctrl+C`, `Ctrl+X`, `Ctrl+U`, `Ctrl+S`, `F12`, `Ctrl+Shift+I/J/C`).
+- **LAN Private Subnet Licensing**: Extended developer license bypass to local area network IPs (`192.168.x.x`, `10.x.x.x`, `172.16.0.0/12`) for phone testing without license prompts.
+- **Master Developer Bypass Key**: Added configurable staging bypass key query parameter (`?dev_key=...`).
+
+#### Improved & Fixed
+- **Non-Intrusive Security**: Removed intrusive full-screen black screen shields and blur overlays during tab switching for smooth UX.
+- **Subfolder URL Normalization**: Corrected URL routing and image assets when hosted in WordPress subdirectories (`/wordpress/`).
+- **PWA Notification Toast**: Fixed SVG rendering and close button interaction on progressive web app banner.
+- **Author Attribution**: Updated developer attribution across headers to Ayeng (`https://www.ayengcoding.com/`).
 | **v2.4.0** | 2026-10-06 | SaaS Transaction Ledger Suite & Multi-Profile Cloud Sync |
 | **v2.3.0** | 2026-10-05 | 7-Day Check-in Streaks, Watch Time Red Envelopes & Rewarded Video Ads |
 | **v2.0.0** | 2026-10-01 | TikTok-Style Vertical Reels Swiper Engine & Hero Billboard |

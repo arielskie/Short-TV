@@ -785,16 +785,100 @@
               <p class="text-xs text-slate-400 mt-1">Configure developer inspection and anti-tamper security protections across your video platform.</p>
             </div>
 
-            <div class="space-y-4 text-xs py-2">
-              <!-- Row: Right-Click & DevTools Inspect -->
-              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
-                <div class="md:col-span-4 font-bold text-white">Right-Click & DevTools Inspect</div>
+            <div class="space-y-4 text-xs py-2 divide-y divide-slate-700/40">
+              <!-- Row 1: Right-Click Protection -->
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start pt-2">
+                <div class="md:col-span-4 font-bold text-white">Right-Click Protection</div>
                 <div class="md:col-span-8">
                   <label class="flex items-start gap-2.5 cursor-pointer">
-                    <input type="checkbox" id="sec-inspect-chk" checked class="w-4 h-4 mt-0.5 text-sky-500 rounded bg-slate-900 border-slate-700 focus:ring-sky-500">
+                    <input type="checkbox" id="sec-rightclick-chk" checked class="w-4 h-4 mt-0.5 text-sky-500 rounded bg-slate-900 border-slate-700 focus:ring-sky-500">
                     <div>
-                      <span class="font-bold text-white text-xs">Allow Right-Click & Inspect Element</span>
-                      <p class="text-[11px] text-slate-400 mt-0.5">Disables the global anti-inspection script so you can right-click and use browser developer tools.</p>
+                      <span class="font-bold text-white text-xs">Enable Right-Click Protection</span>
+                      <p class="text-[11px] text-slate-400 mt-0.5">Checked: Blocks visitors from right-clicking. Unchecked: Allows right-clicking.</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Row 2: Text Selection Protection -->
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start pt-4">
+                <div class="md:col-span-4 font-bold text-white">Text Selection Protection</div>
+                <div class="md:col-span-8">
+                  <label class="flex items-start gap-2.5 cursor-pointer">
+                    <input type="checkbox" id="sec-textsel-chk" checked class="w-4 h-4 mt-0.5 text-sky-500 rounded bg-slate-900 border-slate-700 focus:ring-sky-500">
+                    <div>
+                      <span class="font-bold text-white text-xs">Enable Anti-Highlighting &amp; Selection Protection</span>
+                      <p class="text-[11px] text-slate-400 mt-0.5">Checked: Prevents text highlighting across the site. Unchecked: Allows selecting text.</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Row 3: Copy & Cut Protection -->
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start pt-4">
+                <div class="md:col-span-4 font-bold text-white">Copy &amp; Cut Protection</div>
+                <div class="md:col-span-8">
+                  <label class="flex items-start gap-2.5 cursor-pointer">
+                    <input type="checkbox" id="sec-copy-chk" checked class="w-4 h-4 mt-0.5 text-sky-500 rounded bg-slate-900 border-slate-700 focus:ring-sky-500">
+                    <div>
+                      <span class="font-bold text-white text-xs">Enable Anti-Copy &amp; Cut Protection</span>
+                      <p class="text-[11px] text-slate-400 mt-0.5">Checked: Blocks Ctrl+C, Ctrl+X, Ctrl+U, and Ctrl+S shortcuts. Unchecked: Allows shortcuts.</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Row 4: Developer Tools Protection -->
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start pt-4">
+                <div class="md:col-span-4 font-bold text-white">Developer Tools Protection</div>
+                <div class="md:col-span-8">
+                  <label class="flex items-start gap-2.5 cursor-pointer">
+                    <input type="checkbox" id="sec-devtools-chk" checked class="w-4 h-4 mt-0.5 text-sky-500 rounded bg-slate-900 border-slate-700 focus:ring-sky-500">
+                    <div>
+                      <span class="font-bold text-white text-xs">Enable Anti-DevTools Protection (F12 / Inspect)</span>
+                      <p class="text-[11px] text-slate-400 mt-0.5">Checked: Restricts F12 and Ctrl+Shift+I inspection hotkeys. Unchecked: Allows DevTools.</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Row 5: Screenshot & Print Shield -->
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start pt-4">
+                <div class="md:col-span-4 font-bold text-white">Screenshot &amp; Print Shield</div>
+                <div class="md:col-span-8">
+                  <label class="flex items-start gap-2.5 cursor-pointer">
+                    <input type="checkbox" id="sec-print-chk" class="w-4 h-4 mt-0.5 text-sky-500 rounded bg-slate-900 border-slate-700 focus:ring-sky-500">
+                    <div>
+                      <span class="font-bold text-white text-xs">Enable Anti-Print &amp; Save-to-PDF Protection</span>
+                      <p class="text-[11px] text-slate-400 mt-0.5">Checked: Blanks page on print/PDF (Ctrl+P) and clears clipboard on PrintScreen. Unchecked: Disabled.</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Row 6: Anti-Leak Watermark -->
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start pt-4">
+                <div class="md:col-span-4 font-bold text-white">Anti-Leak Watermark</div>
+                <div class="md:col-span-8">
+                  <label class="flex items-start gap-2.5 cursor-pointer">
+                    <input type="checkbox" id="sec-watermark-chk" class="w-4 h-4 mt-0.5 text-sky-500 rounded bg-slate-900 border-slate-700 focus:ring-sky-500">
+                    <div>
+                      <span class="font-bold text-white text-xs">Enable Floating Anti-Leak Watermark on Video Player</span>
+                      <p class="text-[11px] text-slate-400 mt-0.5">Checked: Shows dynamic floating IP/Username watermark across video player. Unchecked: Disabled.</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Row 7: Admin / Editor Exemption -->
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start pt-4">
+                <div class="md:col-span-4 font-bold text-white">Admin Exemption</div>
+                <div class="md:col-span-8">
+                  <label class="flex items-start gap-2.5 cursor-pointer">
+                    <input type="checkbox" id="sec-admin-chk" checked class="w-4 h-4 mt-0.5 text-sky-500 rounded bg-slate-900 border-slate-700 focus:ring-sky-500">
+                    <div>
+                      <span class="font-bold text-white text-xs">Enable Admin Bypass (Admins exempt from all protections)</span>
+                      <p class="text-[11px] text-slate-400 mt-0.5">Checked: Logged-in admins can copy, highlight, and right-click freely. Unchecked: Protections apply to everyone.</p>
                     </div>
                   </label>
                 </div>
@@ -2972,23 +3056,42 @@
             </div>
           </div>
 
-          <!-- ================= 2.5 ICON SPACING / GAP ADJUSTMENT ================= -->
-          <div class="bg-slate-800/90 border border-slate-700/70 rounded-2xl p-5 shadow-xl space-y-3">
-            <div class="flex items-center justify-between pb-2 border-b border-slate-700/60">
-              <div class="flex items-center gap-2">
-                <i class="fa-solid fa-arrows-left-right text-sky-400"></i>
-                <h4 class="text-xs font-bold text-white uppercase tracking-wider">Mobile Icon Spacing &amp; Dynamic Search Bar Expansion</h4>
+          <!-- ================= 2.5 ICON SPACING & CORNER RADIUS ================= -->
+          <div class="bg-slate-800/90 border border-slate-700/70 rounded-2xl p-5 shadow-xl space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Gap Slider -->
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-arrows-left-right text-sky-400"></i>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Icon Spacing (Gap)</h4>
+                  </div>
+                  <span id="mobile-gap-badge" class="bg-sky-500/20 text-sky-400 border border-sky-500/30 font-mono font-bold text-xs px-2.5 py-0.5 rounded-lg">5px</span>
+                </div>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Customize horizontal spacing between mobile header icons. Lower spacing leaves maximum room for the live search box.</p>
+                <div class="flex items-center gap-3 pt-1">
+                  <span class="text-[10px] font-mono text-slate-400 font-bold">2px</span>
+                  <input type="range" id="mobile-icon-gap-slider" min="2" max="18" value="5" step="1" oninput="updateMobileIconGap(this.value)" class="flex-1 accent-sky-500 cursor-pointer h-2 bg-slate-950 rounded-lg">
+                  <span class="text-[10px] font-mono text-slate-400 font-bold">18px</span>
+                </div>
               </div>
-              <div class="flex items-center gap-2">
-                <span class="text-xs text-slate-400 font-medium">Icon Gap:</span>
-                <span id="mobile-gap-badge" class="bg-sky-500/20 text-sky-400 border border-sky-500/30 font-mono font-bold text-xs px-2.5 py-0.5 rounded-lg">5px</span>
+
+              <!-- Radius Slider -->
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <i class="fa-regular fa-circle-dot text-emerald-400"></i>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Search &amp; Buttons Radius</h4>
+                  </div>
+                  <span id="mobile-radius-badge" class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-mono font-bold text-xs px-2.5 py-0.5 rounded-lg">7px</span>
+                </div>
+                <p class="text-[11px] text-slate-400 leading-relaxed">Corner roundness of the search bar and action buttons (My List, Watch History, Language).</p>
+                <div class="flex items-center gap-3 pt-1">
+                  <span class="text-[10px] font-mono text-slate-400 font-bold">4px (Soft)</span>
+                  <input type="range" id="mobile-radius-slider" min="4" max="25" value="7" step="1" oninput="updateMobileSearchRadius(this.value)" class="flex-1 accent-emerald-500 cursor-pointer h-2 bg-slate-950 rounded-lg">
+                  <span class="text-[10px] font-mono text-slate-400 font-bold">25px (Pill)</span>
+                </div>
               </div>
-            </div>
-            <p class="text-xs text-slate-400 leading-relaxed">Customize horizontal spacing between mobile header icons. Lower spacing leaves maximum room for the live auto-expanding search box. When buttons (e.g. Language or History) are toggled off, the search box automatically expands to fill 100% of the freed space while preserving tight gap spacing.</p>
-            <div class="flex items-center gap-4 pt-2">
-              <span class="text-[11px] font-mono text-slate-400 font-bold">2px (Compact)</span>
-              <input type="range" id="mobile-icon-gap-slider" min="2" max="16" value="5" step="1" oninput="updateMobileIconGap(this.value)" class="flex-1 accent-sky-500 cursor-pointer h-2 bg-slate-950 rounded-lg">
-              <span class="text-[11px] font-mono text-slate-400 font-bold">16px (Spacious)</span>
             </div>
           </div>
 
@@ -4488,24 +4591,33 @@
       triggerSaveToast('Mobile Icon Spacing set to ' + mobileHeaderState.iconGap + 'px');
     }
 
+    function updateMobileSearchRadius(val) {
+      mobileHeaderState.searchRadius = parseInt(val, 10) || 7;
+      const badge = document.getElementById('mobile-radius-badge');
+      if (badge) badge.innerText = val + 'px';
+      renderMobileHeaderPreview();
+      triggerSaveToast('Corner Radius set to ' + val + 'px');
+    }
+
     function renderMobileHeaderPreview() {
       const container = document.getElementById('preview-icons-container');
       if (!container) return;
       container.style.gap = (mobileHeaderState.iconGap || 5) + 'px';
+      const rad = (mobileHeaderState.searchRadius || 7) + 'px';
       let html = '';
 
       mobileHeaderState.items.forEach(item => {
         if (!item.enabled) return;
         if (item.id === 'search') {
-          html += `<div class="header-preview-item preview-search-box flex-1 min-w-[60px] max-w-full h-7 px-2.5 bg-slate-900/90 border border-slate-700 rounded-lg flex items-center gap-1.5 text-[11px] text-slate-400 transition-all shadow-inner"><i class="fa-solid fa-magnifying-glass text-[10px] text-slate-500"></i><span class="truncate">Search drama...</span></div>`;
+          html += `<div class="header-preview-item preview-search-box flex-1 min-w-[60px] max-w-full h-7 px-2.5 bg-slate-900/90 border border-slate-700 flex items-center gap-1.5 text-[11px] text-slate-400 transition-all shadow-inner" style="border-radius:${rad};"><i class="fa-solid fa-magnifying-glass text-[10px] text-slate-500"></i><span class="truncate">Search drama...</span></div>`;
         } else if (item.id === 'language') {
-          html += `<div class="header-preview-item preview-lang-btn flex-shrink-0 w-7 h-7 bg-slate-900/90 border border-slate-700 hover:border-indigo-500/50 rounded-lg flex items-center justify-center text-xs text-indigo-400 transition shadow-sm"><i class="fa-solid fa-globe"></i></div>`;
+          html += `<div class="header-preview-item preview-lang-btn flex-shrink-0 w-7 h-7 bg-slate-900/90 border-0 flex items-center justify-center text-xs text-indigo-400 transition shadow-sm" style="border-radius:${rad};"><i class="fa-solid fa-globe text-[11px]"></i></div>`;
         } else if (item.id === 'mylist') {
-          html += `<div class="header-preview-item preview-mylist-btn flex-shrink-0 w-7 h-7 bg-slate-900/90 border border-slate-700 hover:border-pink-500/50 rounded-lg flex items-center justify-center text-xs text-pink-400 transition shadow-sm"><i class="fa-regular fa-bookmark"></i></div>`;
+          html += `<div class="header-preview-item preview-mylist-btn flex-shrink-0 w-7 h-7 bg-slate-900/90 border border-slate-700 hover:border-pink-500/50 flex items-center justify-center text-xs text-pink-400 transition shadow-sm" style="border-radius:${rad};"><i class="fa-regular fa-bookmark"></i></div>`;
         } else if (item.id === 'history') {
-          html += `<div class="header-preview-item preview-history-btn flex-shrink-0 w-7 h-7 bg-slate-900/90 border border-slate-700 hover:border-emerald-500/50 rounded-lg flex items-center justify-center text-xs text-emerald-400 transition shadow-sm"><i class="fa-regular fa-clock"></i></div>`;
+          html += `<div class="header-preview-item preview-history-btn flex-shrink-0 w-7 h-7 bg-slate-900/90 border border-slate-700 hover:border-emerald-500/50 flex items-center justify-center text-xs text-emerald-400 transition shadow-sm" style="border-radius:${rad};"><i class="fa-regular fa-clock"></i></div>`;
         } else if (item.id === 'coins') {
-          html += `<div class="header-preview-item preview-coins-btn flex-shrink-0 h-7 px-2 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 border border-amber-500/30 rounded-lg flex items-center gap-1 text-[11px] font-bold text-amber-400 transition shadow-sm"><i class="fa-solid fa-coins text-[10px]"></i><span>50</span></div>`;
+          html += `<div class="header-preview-item preview-coins-btn flex-shrink-0 h-7 px-2 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 border border-amber-500/30 rounded-full flex items-center gap-1 text-[11px] font-bold text-amber-400 transition shadow-sm"><i class="fa-solid fa-coins text-[10px]"></i><span>50</span></div>`;
         }
       });
 
