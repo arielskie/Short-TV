@@ -52,10 +52,38 @@
       font-size: 13px;
       border-bottom: 1px solid #334155;
     }
+    .scrollbar-none::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-none {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
     .wp-sidebar {
       background: #1e2327;
       width: 200px;
       min-height: calc(100vh - 32px);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @media (max-width: 767px) {
+      .wp-sidebar {
+        position: fixed;
+        top: 32px;
+        left: 0;
+        bottom: 0;
+        width: 240px;
+        max-width: 82vw;
+        height: calc(100vh - 32px);
+        min-height: auto;
+        z-index: 45;
+        transform: translateX(-100%);
+        box-shadow: 6px 0 28px rgba(0, 0, 0, 0.75);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .wp-sidebar.mobile-open {
+        transform: translateX(0);
+      }
     }
     .wp-menu-item {
       transition: all 0.15s ease;
@@ -181,39 +209,54 @@
 <body class="flex flex-col min-h-screen">
 
   <!-- TOP WP ADMIN BAR -->
-  <header class="wp-admin-bar flex items-center justify-between px-4 z-50 select-none">
-    <div class="flex items-center space-x-4">
-      <div class="flex items-center space-x-2 text-slate-300 hover:text-white cursor-pointer font-bold">
-        <i class="fa-brands fa-wordpress text-lg text-slate-400"></i>
-        <span>ShortTV WordPress</span>
+  <header class="wp-admin-bar flex items-center justify-between px-3 sm:px-4 z-50 select-none sticky top-0">
+    <div class="flex items-center space-x-2 sm:space-x-4 min-w-0">
+      <!-- Mobile Sidebar Toggle -->
+      <button type="button" id="wp-mobile-menu-btn" onclick="toggleMobileSidebar()" class="md:hidden flex items-center justify-center text-slate-300 hover:text-white p-1 rounded hover:bg-slate-800 transition focus:outline-none" aria-label="Toggle Sidebar Navigation">
+        <i class="fa-solid fa-bars text-sm"></i>
+      </button>
+
+      <div onclick="switchMainPage('dashboard')" class="flex items-center space-x-2 text-slate-300 hover:text-white cursor-pointer font-bold text-xs sm:text-sm">
+        <i class="fa-brands fa-wordpress text-base sm:text-lg text-slate-400"></i>
+        <span class="truncate max-w-[130px] sm:max-w-none">ShortTV WordPress</span>
       </div>
-      <div class="flex items-center space-x-1.5 text-xs text-slate-400 hover:text-white cursor-pointer">
+      <div class="hidden sm:flex items-center space-x-1.5 text-xs text-slate-400 hover:text-white cursor-pointer">
         <i class="fa-solid fa-house text-emerald-400"></i>
         <span>Visit Site</span>
       </div>
-      <div class="flex items-center space-x-1.5 text-xs text-slate-400 hover:text-white cursor-pointer">
+      <div class="hidden md:flex items-center space-x-1.5 text-xs text-slate-400 hover:text-white cursor-pointer">
         <i class="fa-solid fa-arrows-rotate text-sky-400"></i>
         <span>3 Updates</span>
       </div>
-      <div class="flex items-center space-x-1.5 text-xs text-slate-400 hover:text-white cursor-pointer">
+      <div class="hidden lg:flex items-center space-x-1.5 text-xs text-slate-400 hover:text-white cursor-pointer" onclick="switchMainPage('add-drama')">
         <i class="fa-solid fa-plus text-emerald-400"></i>
         <span>New Drama</span>
       </div>
     </div>
-    <div class="flex items-center space-x-4 text-xs text-slate-300">
-      <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-mono text-[11px]">
+    <div class="flex items-center space-x-2 sm:space-x-4 text-xs text-slate-300 flex-shrink-0">
+      <span class="hidden sm:inline-flex bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-mono text-[11px]">
         <i class="fa-solid fa-circle-check mr-1"></i>Theme v2.4 Pro Active
       </span>
-      <div class="flex items-center space-x-2 cursor-pointer hover:text-white">
-        <span>Howdy, <strong>masteroppa</strong></span>
+      <div class="flex items-center space-x-1.5 sm:space-x-2 cursor-pointer hover:text-white">
+        <span class="hidden sm:inline">Howdy, <strong>masteroppa</strong></span>
         <img src="../assets/favicon.png" alt="User" class="w-5 h-5 rounded-full border border-emerald-400">
       </div>
     </div>
   </header>
 
-  <div class="flex flex-1 overflow-hidden">
+  <div class="flex flex-1 overflow-hidden relative">
     <!-- WP SIDEBAR NAVIGATION -->
     <aside class="wp-sidebar flex-shrink-0 flex flex-col py-2 select-none border-r border-slate-800">
+      <!-- Mobile Close Row -->
+      <div class="md:hidden flex items-center justify-between px-3 py-2 border-b border-slate-800 text-xs">
+        <span class="font-bold text-white flex items-center gap-2">
+          <i class="fa-brands fa-wordpress text-slate-400"></i> Admin Menu
+        </span>
+        <button onclick="closeMobileSidebar()" class="text-slate-400 hover:text-white p-1 rounded hover:bg-slate-800">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+
       <div class="px-3 py-2 text-[11px] font-bold tracking-wider uppercase text-slate-400">Core Navigation</div>
       
       <!-- Dashboard -->
@@ -281,8 +324,11 @@
       </div>
     </aside>
 
+    <!-- MOBILE SIDEBAR BACKDROP -->
+    <div id="sidebar-backdrop" onclick="closeMobileSidebar()" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 hidden md:hidden transition-opacity duration-200"></div>
+
     <!-- MAIN ADMIN CONTENT AREA -->
-    <main class="flex-1 overflow-y-auto bg-slate-900 p-6">
+    <main class="flex-1 overflow-y-auto bg-slate-900 p-3 sm:p-5 md:p-6 w-full min-w-0">
       
       <!-- NOTIFICATION TOAST -->
       <div id="save-toast" class="fixed top-12 right-6 bg-emerald-500 text-slate-950 font-bold px-4 py-2.5 rounded-lg shadow-xl flex items-center space-x-2 transition-all duration-300 transform translate-y-[-100px] opacity-0 z-50 pointer-events-none">
@@ -294,52 +340,52 @@
       <div id="page-settings" class="page-view hidden">
         
         <!-- Header -->
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 pb-4 border-b border-slate-800">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 pb-4 border-b border-slate-800 gap-3">
           <div>
-            <h1 class="text-2xl font-black text-white flex items-center gap-3">
+            <h1 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2.5 sm:gap-3 flex-wrap">
               <span>Short Stream Settings</span>
               <span class="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-normal">Interactive Admin Simulator</span>
             </h1>
-            <p class="text-slate-400 text-sm mt-1">Configure live mobile branding, Netflix splash animations, vertical video reels, CDN endpoints, and monetization.</p>
+            <p class="text-slate-400 text-xs sm:text-sm mt-1">Configure live mobile branding, Netflix splash animations, vertical video reels, CDN endpoints, and monetization.</p>
           </div>
-          <div class="mt-4 md:mt-0 flex gap-2">
-            <button onclick="triggerSaveToast()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-lg text-sm transition flex items-center gap-2 shadow-lg shadow-emerald-500/20">
+          <div class="flex gap-2 flex-shrink-0">
+            <button onclick="triggerSaveToast()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-lg text-xs sm:text-sm transition flex items-center gap-2 shadow-lg shadow-emerald-500/20">
               <i class="fa-solid fa-floppy-disk"></i> Save Changes
             </button>
           </div>
         </div>
 
-        <!-- SETTINGS TABS NAV (Replica of Screenshot) -->
-        <div class="flex flex-wrap gap-2 mb-6 bg-slate-800/80 p-2 rounded-xl border border-slate-700/60 select-none">
-          <button onclick="switchSettingsTab('branding')" id="tab-btn-branding" class="tab-btn active px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
-            <i class="fa-solid fa-palette text-sky-400"></i> Branding & Logo
+        <!-- SETTINGS TABS NAV (Horizontal swipeable ribbon on mobile, wrap on desktop) -->
+        <div class="flex flex-nowrap md:flex-wrap overflow-x-auto gap-2 mb-6 bg-slate-800/80 p-2 rounded-xl border border-slate-700/60 select-none scrollbar-none pb-2.5 md:pb-2">
+          <button onclick="switchSettingsTab('branding')" id="tab-btn-branding" class="tab-btn active flex-shrink-0 whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
+            <i class="fa-solid fa-palette text-sky-400"></i> Branding &amp; Logo
           </button>
-          <button onclick="switchSettingsTab('splash')" id="tab-btn-splash" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
+          <button onclick="switchSettingsTab('splash')" id="tab-btn-splash" class="tab-btn flex-shrink-0 whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
             <i class="fa-solid fa-mobile-screen text-amber-400"></i> Splash Screen
           </button>
-          <button onclick="switchSettingsTab('security')" id="tab-btn-security" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
-            <i class="fa-solid fa-shield-halved text-red-400"></i> Security & Protection
+          <button onclick="switchSettingsTab('security')" id="tab-btn-security" class="tab-btn flex-shrink-0 whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
+            <i class="fa-solid fa-shield-halved text-red-400"></i> Security &amp; Protection
           </button>
-          <button onclick="switchSettingsTab('ads')" id="tab-btn-ads" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
-            <i class="fa-solid fa-money-bill-wave text-emerald-400"></i> Advertising & Monetization
+          <button onclick="switchSettingsTab('ads')" id="tab-btn-ads" class="tab-btn flex-shrink-0 whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
+            <i class="fa-solid fa-money-bill-wave text-emerald-400"></i> Advertising &amp; Monetization
           </button>
-          <button onclick="switchSettingsTab('firebase')" id="tab-btn-firebase" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
+          <button onclick="switchSettingsTab('firebase')" id="tab-btn-firebase" class="tab-btn flex-shrink-0 whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
             <i class="fa-solid fa-fire text-amber-500"></i> Firebase Configuration
           </button>
-          <button onclick="switchSettingsTab('player')" id="tab-btn-player" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
-            <i class="fa-solid fa-play text-sky-400"></i> Vertical Player & UI
+          <button onclick="switchSettingsTab('player')" id="tab-btn-player" class="tab-btn flex-shrink-0 whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
+            <i class="fa-solid fa-play text-sky-400"></i> Vertical Player &amp; UI
           </button>
-          <button onclick="switchSettingsTab('paywall')" id="tab-btn-paywall" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
-            <i class="fa-solid fa-gem text-indigo-400"></i> Subscription & Coins Paywall
+          <button onclick="switchSettingsTab('paywall')" id="tab-btn-paywall" class="tab-btn flex-shrink-0 whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
+            <i class="fa-solid fa-gem text-indigo-400"></i> Subscription &amp; Coins Paywall
           </button>
-          <button onclick="switchSettingsTab('notifications')" id="tab-btn-notifications" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
+          <button onclick="switchSettingsTab('notifications')" id="tab-btn-notifications" class="tab-btn flex-shrink-0 whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
             <i class="fa-solid fa-bell text-yellow-400"></i> Notifications
           </button>
-          <button onclick="switchSettingsTab('backup')" id="tab-btn-backup" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
-            <i class="fa-solid fa-box-archive text-rose-400"></i> Backup & Migration
+          <button onclick="switchSettingsTab('backup')" id="tab-btn-backup" class="tab-btn flex-shrink-0 whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
+            <i class="fa-solid fa-box-archive text-rose-400"></i> Backup &amp; Migration
           </button>
-          <button onclick="switchSettingsTab('license')" id="tab-btn-license" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
-            <i class="fa-solid fa-lock text-emerald-400"></i> Theme License & Domain Lock
+          <button onclick="switchSettingsTab('license')" id="tab-btn-license" class="tab-btn flex-shrink-0 whitespace-nowrap px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 text-slate-300 hover:text-white">
+            <i class="fa-solid fa-lock text-emerald-400"></i> Theme License &amp; Domain Lock
           </button>
         </div>
 
@@ -4102,8 +4148,32 @@
 
   <!-- INTERACTIVE JS SCRIPT -->
   <script>
+    // Mobile Sidebar Drawer Controls
+    function toggleMobileSidebar() {
+      const sidebar = document.querySelector('.wp-sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      if (!sidebar) return;
+      const isOpen = sidebar.classList.contains('mobile-open');
+      if (isOpen) {
+        closeMobileSidebar();
+      } else {
+        sidebar.classList.add('mobile-open');
+        if (backdrop) backdrop.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+      }
+    }
+
+    function closeMobileSidebar() {
+      const sidebar = document.querySelector('.wp-sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      if (sidebar) sidebar.classList.remove('mobile-open');
+      if (backdrop) backdrop.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
     // Page switching
     function switchMainPage(pageId) {
+      closeMobileSidebar();
       document.querySelectorAll('.page-view').forEach(el => el.classList.add('hidden'));
       document.querySelectorAll('.wp-menu-item').forEach(el => el.classList.remove('active'));
       
@@ -4111,6 +4181,9 @@
       const targetNav = document.getElementById('nav-' + pageId);
       if (targetPage) targetPage.classList.remove('hidden');
       if (targetNav) targetNav.classList.add('active');
+
+      const mainArea = document.querySelector('main');
+      if (mainArea) mainArea.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // Settings tab switching
@@ -4125,7 +4198,12 @@
       const targetPane = document.getElementById('tab-content-' + tabId);
       const targetBtn = document.getElementById('tab-btn-' + tabId);
       if (targetPane) targetPane.classList.remove('hidden');
-      if (targetBtn) targetBtn.classList.add('active');
+      if (targetBtn) {
+        targetBtn.classList.add('active');
+        if (window.innerWidth < 768) {
+          targetBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
     }
 
     // Storage & Streaming CDN tabs switcher
